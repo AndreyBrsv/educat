@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
-.idea/dataSources.local.xml
-.idea/dataSources/
+# IntelliJ project files
+.idea
+*.iml
 dataSources.local.xml
 dataSources/
-*.iml
+out
+gen
