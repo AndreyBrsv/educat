@@ -3,3 +3,4 @@
 .idea/dataSources/
 dataSources.local.xml
 dataSources/
+*.iml
