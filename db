@@ -1,0 +1,17 @@
+
+-- Данные для тестовой базы на Heroku
+
+Host
+    ec2-54-228-246-214.eu-west-1.compute.amazonaws.com
+Database
+    d3c5gtjpcnehgi
+User
+    pzcfiucmbrvpba
+Port
+    5432
+Password
+    deaf1cb96055829ab03ca51f224ac922b76b15cd9a719dde3b26413325954533
+URI
+    postgres://pzcfiucmbrvpba:deaf1cb96055829ab03ca51f224ac922b76b15cd9a719dde3b26413325954533@ec2-54-228-246-214.eu-west-1.compute.amazonaws.com:5432/d3c5gtjpcnehgi
+Heroku CLI
+    heroku pg:psql postgresql-cylindrical-96423 --app educatdb
