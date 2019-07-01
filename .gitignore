@@ -1,6 +1,23 @@
 # Created by .ignore support plugin (hsz.mobi)
+
+# НЕ ИГНОРИРУЕМ ТОЛЬКО ФАЙЛЫ ИСХОДНИКОВ
+
 # IntelliJ project files
 .idea
 *.iml
-out
+
+# Игнорируем скомпиленные файлы
+*.jar
+*.ear
+*.war
+
+
+out/
 gen
+
+#maven files
+target/
+
+#log files
+*.log
+
