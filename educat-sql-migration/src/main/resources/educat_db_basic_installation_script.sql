@@ -1,0 +1,81 @@
+-- Основной скрипт развертывания базы
+
+
+-- *** ОБЩИЕ НАСТРОЙКИ БАЗЫ ***
+
+
+
+
+-- *** СХЕМА ***
+
+
+
+
+
+-- *** ТАБЛИЦЫ ***
+-- *ПОЛЬЗОВАТЕЛИ*
+-- Пользователи
+CREATE TABLE EC_USER (
+    USER_ID NUMERIC PRIMARY KEY,
+    EMAIL VARCHAR(50),
+    LOGIN VARCHAR(50),
+    FIRST_NAME VARCHAR,
+    SECOND_NAME VARCHAR
+);
+-- Перечень ролей, имеющихся в системе
+CREATE TABLE EC_USER_ROLES (
+    USER_ROLE_ID NUMERIC PRIMARY KEY,
+    ROLE_NAME VARCHAR(50),
+    ROLE_DESCRIPTION varchar(50)
+);
+-- *ОБРАЗОВАТЕЛЬНЫЕ КУРСЫ*
+-- Образовательные курсы
+CREATE TABLE EC_EDUCATIONAL_COURSES (
+    EDUCATIONAL_COURSE_ID NUMERIC PRIMARY KEY,
+    DESCRIPTION VARCHAR
+);
+-- Задачи
+CREATE TABLE EC_EDUCATIONAL_TASKS (
+    EDUCATIONAL_TASK_ID NUMERIC PRIMARY KEY
+);
+-- Задачи
+CREATE TABLE EC_USER_COMPLETE_TASKS (
+    USER_COMPLETE_TASK_ID NUMERIC PRIMARY KEY,
+    USER_ID NUMERIC NOT NULL,
+    EDUCATIONAL_TASK_ID NUMERIC NOT NULL
+);
+
+-- Подписки пользователей на курсы
+CREATE TABLE EC_USER_COURSE_SUBSCRIPTIONS (
+    USER_COURSE_SUBSCRIPTION_ID NUMERIC PRIMARY KEY,
+    USER_ID NUMERIC NOT NULL,
+    EDUCATIONAL_COURSE_ID NUMERIC NOT NULL,
+    EXPIRATION_DATE TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+-- Всевозможные достижения, получаемые пользователем при
+-- выполнении каких-нибудь заданий
+CREATE TABLE EC_EDUCATIONAL_ACHIEVEMENTS (
+    EDUCATIONAL_ACHIEVEMENT_ID NUMERIC PRIMARY KEY
+);
+
+-- *СТАТЬИ*
+-- Статьи
+CREATE TABLE EC_ARTICLES (
+    ARTICLE_ID NUMERIC PRIMARY KEY,
+    USER_ID NUMERIC,
+    HEADER VARCHAR,
+    TAGS JSON,
+    DATE TIMESTAMP,
+    CONTENT JSON NOT NULL
+);
+-- !!! Добавить каскадное удаление статья -> комментарии
+-- Комментарии к статьям
+CREATE TABLE EC_ARTICLE_COMMENTS (
+    ARTICLE_COMMENT_ID NUMERIC PRIMARY KEY,
+    ARTICLE_ID NUMERIC NOT NULL,
+    USER_ID NUMERIC,
+    PARENT_COMMENT_ID NUMERIC,
+    CONTENT VARCHAR,
+    DATE TIMESTAMP
+)
