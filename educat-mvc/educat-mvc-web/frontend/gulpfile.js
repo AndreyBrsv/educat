@@ -104,4 +104,5 @@ gulp.task('watch', function() {
 // варианты сборки
 // =============================================================================
 
-gulp.task('default', gulp.series('clean', 'build:html', 'build:css', 'watch'));
+gulp.task('default', gulp.series('clean', 'build:html', 'build:css', 'build:js',
+    'watch'));
