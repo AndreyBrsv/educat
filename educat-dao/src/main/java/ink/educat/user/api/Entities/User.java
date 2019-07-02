@@ -6,6 +6,17 @@ import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 
+/**
+ * Сущность, отражающая пользователя в системе.
+ *
+ * @author Andrey Borisov
+ * @author Ilya Mikheev
+ *
+ * @see UserStatus
+ *
+ */
+//TODO: После устаканивания структуры данного pojo,
+//TODO: определить методы toString(), hashCode(), equals(User user)
 public class User implements Serializable {
 
     private long id;
