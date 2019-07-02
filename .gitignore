@@ -21,3 +21,5 @@ target/
 #log files
 *.log
 
+# Frontend
+educat-mvc/educat-mvc-web/frontend/node_modules
