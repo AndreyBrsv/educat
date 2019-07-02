@@ -78,16 +78,4 @@ public class UserDaoImpl implements UserDao {
         return userList.iterator().next();
 
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean isUserExists(@NonNull String email) {
-        //noinspection ConstantConditions
-        if (email == null || email.isEmpty()) {
-            return false;
-        }
-
-        return false;
-    }
 }

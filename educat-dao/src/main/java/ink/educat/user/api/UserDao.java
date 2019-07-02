@@ -1,5 +1,6 @@
 package ink.educat.user.api;
 
+import ink.educat.core.api.AbstractDao;
 import ink.educat.user.api.Entities.User;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -7,7 +8,7 @@ import org.springframework.lang.Nullable;
 /**
  * Интерфейс доступа к данным пользователей
  */
-public interface UserDao {
+public interface UserDao extends AbstractDao<User> {
 
     /**
      * Позволяет получить пользователя по email
@@ -20,13 +21,5 @@ public interface UserDao {
     //TODO: на более высоком уровне и обернуто в http response
     @Nullable
     User getUserByEmail(@NonNull String email);
-
-    /**
-     * Позволяет узнать, существует ли пользователь в системе
-     *
-     * @param email - адрес электронной почты пользователя
-     * @return true, если пользователь найден, false иначе
-     */
-    boolean isUserExists(@NonNull String email);
 
 }
