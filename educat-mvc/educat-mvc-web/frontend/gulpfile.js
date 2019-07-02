@@ -1,3 +1,17 @@
 'use strict';
 
 const gulp = require('gulp');
+
+
+// =============================================================================
+// функция "ленивого" подключения модуля
+// =============================================================================
+
+function lazyRequireTasks(taskName, path, options) {
+  options = options || {};
+  options.taskName = taskName;
+  gulp.task(taskName, function(callback) {
+    let task = require(path).call(this, options);
+    return task(callback);
+  })
+}
