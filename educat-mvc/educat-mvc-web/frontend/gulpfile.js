@@ -82,4 +82,4 @@ gulp.task('watch', function() {
 // варианты сборки
 // =============================================================================
 
-gulp.task('default', gulp.series('clean', 'build:html', 'watch'));
+gulp.task('default', gulp.series('clean', 'build:html', 'build:css', 'watch'));
