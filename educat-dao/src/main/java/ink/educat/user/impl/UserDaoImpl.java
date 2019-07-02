@@ -3,12 +3,33 @@ package ink.educat.user.impl;
 import com.google.common.base.Preconditions;
 import ink.educat.user.api.Entities.User;
 import ink.educat.user.api.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UserDaoImpl implements UserDao {
+
+    // Поля для @Autowired, не забывать добавлять в конструктор
+    private final JdbcTemplate jdbcTemplate;
+
+    // Мапперы
+    private final RowMapper<User> userRowMapper = ((resultSet, i) -> {
+        final User user = new User();
+        user.setEmail(resultSet.getString("email"));
+        return user;
+    });
+
+    @Autowired
+    public UserDaoImpl(final JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     /**
      * {@inheritDoc}
@@ -20,7 +41,26 @@ public class UserDaoImpl implements UserDao {
                 email != null && !email.isEmpty(),
                 "Email argument can't be empty!");
 
-        return null;
+        final MapSqlParameterSource mapSqlParameterSource =
+                new MapSqlParameterSource().addValue("email", email);
+
+        final List<User> userList = jdbcTemplate.query(
+                "SELECT DISTINCT * FROM EC_USERS WHERE EMAIL = :email",
+                userRowMapper,
+                mapSqlParameterSource
+        );
+
+        if (userList.isEmpty()) {
+            return null;
+        }
+
+        Preconditions.checkState(
+                userList.size() == 1,
+                "Found multiple users with this email!"
+        );
+
+        return userList.iterator().next();
+
     }
 
     /**
