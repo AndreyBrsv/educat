@@ -13,6 +13,7 @@ import java.io.Serializable;
  * @author Ilya Mikheev
  *
  * @see UserStatus
+ * @see UserRole
  *
  */
 //TODO: После устаканивания структуры данного pojo,
@@ -22,6 +23,8 @@ public class User implements Serializable {
     private long id;
 
     private String login;
+
+    private String pass;
 
     @Nullable
     private String email;
@@ -34,6 +37,9 @@ public class User implements Serializable {
 
     @NonNull
     private UserStatus userStatus;
+
+    @NonNull
+    private UserRole userRole;
 
     public User() {
 
@@ -69,6 +75,11 @@ public class User implements Serializable {
     @NonNull
     public UserStatus getUserStatus() {
         return userStatus;
+    }
+
+    @NonNull
+    public UserRole getUserRole() {
+        return userRole;
     }
 
     public void setUserStatus(@NonNull UserStatus userStatus) {
