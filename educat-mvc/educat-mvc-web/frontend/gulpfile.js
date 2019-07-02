@@ -28,3 +28,9 @@ lazyRequireTasks('build:html', './gulp-tasks/build/html', {
   base: 'src/',
   dist: 'dist/'
 });
+
+lazyRequireTasks('clean:html', './gulp-tasks/clean', {
+  dist: [
+    'dist/**/*.html'
+  ]
+});
