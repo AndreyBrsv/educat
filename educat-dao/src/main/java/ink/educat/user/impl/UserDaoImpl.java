@@ -27,17 +27,17 @@ public class UserDaoImpl implements UserDao {
      * где требуется вернуть пользователя.
      */
     private final RowMapper<User> userRowMapper = ((resultSet, i) -> {
-        final User user = new User();
-        user.setId(resultSet.getLong("user_id"));
-        user.setLogin(resultSet.getString("login"));
-        user.setEmail(resultSet.getString("email"));
-        user.setFirstName(resultSet.getString("first_name"));
-        user.setSecondName(resultSet.getString("second_name"));
         final UserRole userRole = UserRole.parseByName(resultSet.getString("role_name"));
-        user.setUserRole(userRole);
         final UserStatus userStatus = UserStatus.parseByName(resultSet.getString("status"));
-        user.setUserStatus(userStatus);
-        return user;
+        return new User(
+                resultSet.getLong("user_id"),
+                resultSet.getString("login"),
+                resultSet.getString("email"),
+                resultSet.getString("first_name"),
+                resultSet.getString("second_name"),
+                userStatus,
+                userRole
+        );
     });
 
     @Autowired
