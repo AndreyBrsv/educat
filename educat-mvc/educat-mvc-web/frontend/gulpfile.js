@@ -15,3 +15,16 @@ function lazyRequireTasks(taskName, path, options) {
     return task(callback);
   })
 }
+
+
+// =============================================================================
+// html
+// =============================================================================
+
+lazyRequireTasks('build:html', './gulp-tasks/build/html', {
+  src: [
+    'src/**/*.html'
+  ],
+  base: 'src/',
+  dist: 'dist/'
+});
