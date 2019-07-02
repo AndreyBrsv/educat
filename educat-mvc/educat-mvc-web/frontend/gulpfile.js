@@ -67,6 +67,14 @@ gulp.task('watch', function() {
         console.log('Task initiator: "' + path + '"' + ' Event: ' + event);
       });
 
+  gulp.watch([
+    'src/blocks/**/*.css',
+    'src/pages-decl/**/*.css'
+  ], gulp.series('clean:css', 'build:css'))
+      .on('all', function(event, path) {
+        console.log('Task initiator: "' + path + '"' + ' Event: ' + event);
+      });
+
 });
 
 
