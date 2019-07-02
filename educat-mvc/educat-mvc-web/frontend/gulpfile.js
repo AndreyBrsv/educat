@@ -90,6 +90,13 @@ gulp.task('watch', function() {
         console.log('Task initiator: "' + path + '"' + ' Event: ' + event);
       });
 
+  gulp.watch([
+    'src/blocks/**/*.js',
+    'src/pages-decl/**/*.js'
+  ], gulp.series('clean:js', 'build:js'))
+      .on('all', function(event, path) {
+        console.log('Task initiator: "' + path + '"' + ' Event: ' + event);
+      });
 });
 
 
