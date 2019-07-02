@@ -22,17 +22,13 @@ function lazyRequireTasks(taskName, path, options) {
 // =============================================================================
 
 lazyRequireTasks('build:html', './gulp-tasks/build/html', {
-  src: [
-    'src/**/*.html'
-  ],
+  src: 'src/**/*.html',
   base: 'src/',
   dist: 'dist/'
 });
 
 lazyRequireTasks('clean:html', './gulp-tasks/clean', {
-  dist: [
-    'dist/**/*.html'
-  ]
+  dist: 'dist/**/*.html'
 });
 
 
