@@ -25,7 +25,7 @@ public interface UserDao {
      * Позволяет узнать, существует ли пользователь в системе
      *
      * @param email - адрес электронной почты пользователя
-     * @return
+     * @return true, если пользователь найден, false иначе
      */
     boolean isUserExists(@NonNull String email);
 
