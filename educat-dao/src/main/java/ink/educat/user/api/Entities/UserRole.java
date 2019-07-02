@@ -22,7 +22,7 @@ public enum UserRole {
     }
 
     @NonNull
-    public UserRole parseByName(@NonNull final String name) {
+    public static UserRole parseByName(@NonNull final String name) {
         //noinspection ConstantConditions
         Preconditions.checkArgument(
                 name != null,

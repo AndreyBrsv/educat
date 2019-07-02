@@ -2,6 +2,8 @@ package ink.educat.user.impl;
 
 import com.google.common.base.Preconditions;
 import ink.educat.user.api.Entities.User;
+import ink.educat.user.api.Entities.UserRole;
+import ink.educat.user.api.Entities.UserStatus;
 import ink.educat.user.api.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,9 +22,21 @@ public class UserDaoImpl implements UserDao {
     private final JdbcTemplate jdbcTemplate;
 
     // Мапперы
+    /**
+     * Использовать данный маппер везде в {@link UserDaoImpl} в методах,
+     * где требуется вернуть пользователя.
+     */
     private final RowMapper<User> userRowMapper = ((resultSet, i) -> {
         final User user = new User();
+        user.setId(resultSet.getLong("user_id"));
+        user.setLogin(resultSet.getString("login"));
         user.setEmail(resultSet.getString("email"));
+        user.setFirstName(resultSet.getString("first_name"));
+        user.setSecondName(resultSet.getString("second_name"));
+        final UserRole userRole = UserRole.parseByName(resultSet.getString("role_name"));
+        user.setUserRole(userRole);
+        final UserStatus userStatus = UserStatus.parseByName(resultSet.getString("status"));
+        user.setUserStatus(userStatus);
         return user;
     });
 
@@ -45,7 +59,9 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValue("email", email);
 
         final List<User> userList = jdbcTemplate.query(
-                "SELECT DISTINCT * FROM EC_USERS WHERE EMAIL = :email",
+                "SELECT DISTINCT * FROM EC_USERS U \n" +
+                        "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
+                        "WHERE EMAIL = :email",
                 userRowMapper,
                 mapSqlParameterSource
         );

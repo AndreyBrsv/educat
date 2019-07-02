@@ -20,7 +20,7 @@ public enum  UserStatus {
     }
 
     @NonNull
-    public UserStatus parseByName(@NonNull final String name) {
+    public static UserStatus parseByName(@NonNull final String name) {
         //noinspection ConstantConditions
         Preconditions.checkArgument(
                 name != null,
