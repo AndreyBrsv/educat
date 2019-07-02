@@ -34,3 +34,17 @@ lazyRequireTasks('clean:html', './gulp-tasks/clean', {
     'dist/**/*.html'
   ]
 });
+
+
+// =============================================================================
+// наблюдение за исходниками
+// =============================================================================
+
+gulp.task('watch', function() {
+
+  gulp.watch('src/**/*.html', gulp.series('clean:html', 'build:html'))
+      .on('all', function(event, path) {
+        console.log('Task initiator: "' + path + '"' + ' Event: ' + event);
+      });
+
+});
