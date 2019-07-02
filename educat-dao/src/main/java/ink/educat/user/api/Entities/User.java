@@ -1,5 +1,7 @@
 package ink.educat.user.api.Entities;
 
+import com.google.common.base.Preconditions;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
@@ -18,6 +20,9 @@ public class User implements Serializable {
 
     @Nullable
     private String secondName;
+
+    @NonNull
+    private UserStatus userStatus;
 
     public User() {
 
@@ -48,5 +53,18 @@ public class User implements Serializable {
 
     public void setSecondName(@Nullable String secondName) {
         this.secondName = secondName;
+    }
+
+    @NonNull
+    public UserStatus getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(@NonNull UserStatus userStatus) {
+        //noinspection ConstantConditions
+        Preconditions.checkArgument(
+                userStatus != null,
+                "UserStatus name can't be empty!");
+        this.userStatus = userStatus;
     }
 }
