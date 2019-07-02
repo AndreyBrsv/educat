@@ -18,6 +18,7 @@
         <module>educat-sql-migration</module>
         <module>educat-dao</module>
         <module>educat-mvc</module>
+        <module>educat-service</module>
     </modules>
 
     <dependencies>
