@@ -33,7 +33,7 @@ public enum UserRole {
             }
         }
 
-        throw new IllegalArgumentException("Incorrect UserStatus name!");
+        throw new IllegalArgumentException("Incorrect UserRole name!");
     }
 
     @NonNull

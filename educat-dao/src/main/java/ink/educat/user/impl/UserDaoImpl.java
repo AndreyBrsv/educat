@@ -16,8 +16,10 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao {
 
+    // Поля для @Autowired, не забывать добавлять в конструктор
     private final JdbcTemplate jdbcTemplate;
 
+    // Мапперы
     private final RowMapper<User> userRowMapper = ((resultSet, i) -> {
         final User user = new User();
         user.setEmail(resultSet.getString("email"));
@@ -50,9 +52,14 @@ public class UserDaoImpl implements UserDao {
 
         if (userList.isEmpty()) {
             return null;
-        } else {
-            return userList.iterator().next();
         }
+
+        Preconditions.checkState(
+                userList.size() == 1,
+                "Found multiple users with this email!"
+        );
+
+        return userList.iterator().next();
 
     }
 
