@@ -21,4 +21,12 @@ public interface UserDao {
     @Nullable
     User getUserByEmail(@NonNull String email);
 
+    /**
+     * Позволяет узнать, существует ли пользователь в системе
+     *
+     * @param email - адрес электронной почты пользователя
+     * @return
+     */
+    boolean isUserExists(@NonNull String email);
+
 }

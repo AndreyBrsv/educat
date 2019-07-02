@@ -6,11 +6,14 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
+import java.sql.DriverManager;
+
 @Repository
 public class UserDaoImpl implements UserDao {
 
     @Nullable
     public User getUserByEmail(@NonNull final String email) {
+
         return null;
     }
 }
