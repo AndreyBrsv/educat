@@ -81,6 +81,10 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    public String getPass() { return pass; }
+
+    public void setPass(String pass) { this.pass = pass; }
+
     public String getLogin() {
         return login;
     }
