@@ -10,7 +10,7 @@ INSERT INTO ec_user_roles (role_name, role_description) VALUES
 ('user', 'educator');
 
 -- Пользователи
-INSERT INTO ec_user (user_role_id, email, login, pass, first_name, second_name, status) VALUES
+INSERT INTO ec_users (user_role_id, email, login, pass, first_name, second_name, status) VALUES
             (1, 'andreybrsv@yandex.ru', 'AndreyBrsv', '12345', 'Andrey', 'Borisov', 'ACTIVE'),
             (1, 'ilyamikheev@yandex.ru', 'MikheevShow', '12345', 'Ilya', 'Mikheev', 'ACTIVE'),
             (1, 'khabibullinvasiliy@yandex.ru', 'GitKhab', '12345', 'Vasiliy', 'Khabibullin', 'ACTIVE'),

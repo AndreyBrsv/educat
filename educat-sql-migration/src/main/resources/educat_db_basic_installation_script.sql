@@ -15,7 +15,7 @@
 -- *** ТАБЛИЦЫ ***
 -- *ПОЛЬЗОВАТЕЛИ*
 -- Пользователи
-CREATE TABLE EC_USER (
+CREATE TABLE EC_USERS (
     USER_ID SERIAL PRIMARY KEY,
     USER_ROLE_ID NUMERIC NOT NULL,
     EMAIL VARCHAR(50),
