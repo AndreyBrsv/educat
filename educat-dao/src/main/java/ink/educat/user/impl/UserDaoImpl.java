@@ -42,19 +42,22 @@ public class UserDaoImpl implements UserDao {
         );
     });
 
-
-    private final Map<String, String> userMapper(User user) {
-        Map<String, String> values = new ManagedMap<>();
-            values.put("user_id", Long.toString(user.getId()));
+    private Map<String, Object> userMapper(User user) {
+        Map<String, Object> values = new ManagedMap<>();
+            values.put("user_id", user.getId());
             values.put("login", user.getLogin());
+            values.put("pass", user.getPass());
             values.put("email", user.getEmail());
             values.put("first_name", user.getFirstName());
             values.put("second_name", user.getSecondName());
-            values.put("UserStatus", user.getUserStatus().getDisplayableName());
-            values.put("UserRole", user.getUserRole().getDisplayableName());
+            values.put("UserStatus", user.getUserStatus());
+            values.put("UserRole", user.getUserRole());
+            values.put("UserRoleId", user.getUserRole().getCode());
 
         return values;
     }
+
+    //TODO реализовать метод для валидации входных параметров на обновление и создание пользователя
 
     @Autowired
     public UserDaoImpl(final JdbcTemplate jdbcTemplate) {
@@ -86,7 +89,6 @@ public class UserDaoImpl implements UserDao {
             return null;
         }
 
-        //TODO maybe .size() > 1?
         Preconditions.checkState(
                 userList.size() == 1,
                 "Found multiple users with this email!"
@@ -111,7 +113,7 @@ public class UserDaoImpl implements UserDao {
         final List<User> userList = jdbcTemplate.query(
                 "SELECT DISTINCT * FROM EC_USERS U \n" +
                         "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
-                        "WHERE ID = :user_id",
+                        "WHERE USER_ID = :user_id",
                 userRowMapper,
                 mapSqlParameterSource
         );
@@ -140,7 +142,7 @@ public class UserDaoImpl implements UserDao {
             id = ids.iterator().next();
 
             if(id > 0) {
-                validIds.append(ids.iterator().next());
+                validIds.append(id);
             }
         }
 
@@ -148,7 +150,7 @@ public class UserDaoImpl implements UserDao {
             id = ids.iterator().next();
 
             if (id > 0) {
-                validIds.append(", " + ids.iterator().next());
+                validIds.append(", " + id);
             }
         }
 
@@ -164,7 +166,7 @@ public class UserDaoImpl implements UserDao {
         final List<User> userList = jdbcTemplate.query(
                 "SELECT DISTINCT * FROM EC_USERS U \n" +
                         "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
-                        "WHERE ID IN (:user_ids)",
+                        "WHERE USER_ID IN (:user_ids)",
                 userRowMapper,
                 mapSqlParameterSource
         );
@@ -176,18 +178,12 @@ public class UserDaoImpl implements UserDao {
         return userList;
     }
 
-    //TODO ? сделать отдельный метод для валидации всех параметров. Либо это на клиенте?
-    //TODO ? использовать апдейт для одного юзера или есть спецаильный удобный апдейт всех?
     /**
      * {@inheritDoc}
      */
-    public void saveOrUpdate(@NonNull final Iterable<User> users) {
-        while(users.iterator().hasNext())
-        {
-            saveOrUpdate(users.iterator().next());
-        }
-
-        //jdbcTemplate.batchUpdate();
+    public void Update(@NonNull final Iterable<User> users) {
+        //TODO https://stackoverflow.com/questions/20360574/why-springs-jdbctemplate-batchupdate-so-slow
+        //TODO выбрать вариант
     }
 
     /**
@@ -198,11 +194,15 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValues(userMapper(user));
 
         jdbcTemplate.update(
-                "UPDATE EC_USERS SET " +
+                "INSERT INTO EC_USERS \n" +
+                        "(user_role_id, email, login, pass, first_name, second_name, status) \n" +
+                        "VALUES " +
+                        "(:UserRoleId, :email, :login, :pass, :first_name, :second_name, :UserStatus) \n" +
+                        "ON CONFLICT (USER_ID)" +
+                        "DO UPDATE SET \n" +
                         "login = :login, email = :email, \n" +
                         "first_name = :first_name, second_name = :second_name, \n" +
-                        "user_status = :user_status, user_role = :user_role \n" +
-                        "WHERE id = :user_id",
+                        "user_status = :user_status, user_role = :user_role \n",
                 mapSqlParameterSource);
     }
 
@@ -213,8 +213,9 @@ public class UserDaoImpl implements UserDao {
         final MapSqlParameterSource mapSqlParameterSource =
                 new MapSqlParameterSource().addValues(userMapper(user));
 
-        jdbcTemplate.queryForMap(
-                "DELETE FROM EC_USERS WHERE id = :id",
-                mapSqlParameterSource);
+        if(user.getUserStatus() == UserStatus.DELETED)
+            jdbcTemplate.queryForMap(
+                    "DELETE FROM EC_USERS WHERE USER_ID = :id",
+                    mapSqlParameterSource);
     }
 }
