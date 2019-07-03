@@ -1,0 +1,5 @@
+.form__item {}
+
+.form__item:not(:first-child) {
+  margin-top: 16px;
+}

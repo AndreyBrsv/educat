@@ -1,0 +1,14 @@
+.form__submit {
+  border: none;
+  background-color: #00a550;
+  color: #fff;
+  padding: 14px;
+}
+
+.form__submit:hover {
+  background-color: #00af55;
+}
+
+.form__submit:active {
+  background-color: #00a550;
+}

@@ -1,0 +1,12 @@
+.form__item {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 3px;
+}
+
+.form__item:last-child {
+  margin-top: 24px;
+}

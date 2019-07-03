@@ -1,0 +1,7 @@
+.form__field {
+  border: 1px solid #dadce0;
+}
+
+.form__field::placeholder {
+  color: #808080;
+}
