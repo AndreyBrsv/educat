@@ -9,16 +9,18 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  */
 
 public enum UserRole {
-    ADMIN("Администратор"),
-    MODERATOR("Модератор"),
-    COMPANY("Компания"),
-    TUTOR("Тьютор"),
-    USER("Пользователь");
+    ADMIN("Администратор", 1),
+    MODERATOR("Модератор", 2),
+    COMPANY("Компания", 3),
+    TUTOR("Тьютор", 4),
+    USER("Пользователь", 5);
 
     private String displayableName;
+    private int code;
 
-    UserRole(final String displayableName) {
+    UserRole(final String displayableName, final int code) {
         this.displayableName = displayableName;
+        this.code = code;
     }
 
     @NonNull
@@ -40,4 +42,7 @@ public enum UserRole {
     public String getDisplayableName() {
         return displayableName;
     }
+
+    @NonNull
+    public int getCode() { return code; }
 }
