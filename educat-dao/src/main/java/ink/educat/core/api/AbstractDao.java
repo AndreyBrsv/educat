@@ -30,7 +30,6 @@ public interface AbstractDao<Entity> {
      */
     Collection<Entity> findByIDs(final Iterable<Long> ids);
 
-    //TODO мне кажется стоит возвращать успешный результат выполнения операции
     /**
      * Выполняет батчевое сохранение сущностей, лежащих в коллекции
      *

@@ -1,6 +1,7 @@
 package ink.educat.user.impl;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableCollection;
 import ink.educat.user.api.Entities.User;
 import ink.educat.user.api.Entities.UserRole;
 import ink.educat.user.api.Entities.UserStatus;
@@ -135,7 +136,7 @@ public class UserDaoImpl implements UserDao {
      */
     @Nullable
     public List<User> findByIDs(@NonNull final Iterable<Long> ids) {
-        StringBuilder validIds = new StringBuilder();
+        final StringBuilder validIds = new StringBuilder();
         Long id;
 
         if(ids.iterator().hasNext()) {
@@ -150,12 +151,12 @@ public class UserDaoImpl implements UserDao {
             id = ids.iterator().next();
 
             if (id > 0) {
-                validIds.append(", " + id);
+                validIds.append(", ").append(id);
             }
         }
 
         Preconditions.checkArgument(
-                validIds.equals(""),
+                validIds.toString().equals(""),
                 "No valid ids!"
 
         );
@@ -190,6 +191,11 @@ public class UserDaoImpl implements UserDao {
      * {@inheritDoc}
      */
     public void saveOrUpdate(@NonNull final User user) {
+        //noinspection ConstantConditions
+        Preconditions.checkArgument(
+                user != null,
+                "User can't be null!");
+
         final MapSqlParameterSource mapSqlParameterSource =
                 new MapSqlParameterSource().addValues(userMapper(user));
 
@@ -210,6 +216,11 @@ public class UserDaoImpl implements UserDao {
      * {@inheritDoc}
      */
     public void delete(@NonNull final User user) {
+        //noinspection ConstantConditions
+        Preconditions.checkArgument(
+                user != null,
+                "User can't be null!");
+
         final MapSqlParameterSource mapSqlParameterSource =
                 new MapSqlParameterSource().addValues(userMapper(user));
 
@@ -217,5 +228,10 @@ public class UserDaoImpl implements UserDao {
             jdbcTemplate.queryForMap(
                     "DELETE FROM EC_USERS WHERE USER_ID = :id",
                     mapSqlParameterSource);
+    }
+
+    @Override
+    public void saveOrUpdate(Iterable<User> users) {
+
     }
 }

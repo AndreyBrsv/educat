@@ -41,6 +41,9 @@ public class User implements Serializable {
     @NonNull
     private UserRole userRole;
 
+    //private LocalDate registrationDate;
+    //private LocalDate lastLoginDate;
+
     public User(final long id,
                 @Nullable final String login,
                 @NonNull final String email,
