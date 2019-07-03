@@ -1,0 +1,9 @@
+/**
+ * 1. Избавляемся от встроенного фонового цвета на android
+ */
+
+.form__select {
+  background-color: transparent; /* 1 */
+  border: 1px solid #303030;
+  -webkit-appearance: menulist;
+}
