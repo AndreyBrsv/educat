@@ -22,8 +22,6 @@ public class User implements Serializable {
 
     private long id;
 
-    private String login;
-
     private String pass;
 
     @NonNull
@@ -45,7 +43,6 @@ public class User implements Serializable {
     //private LocalDate lastLoginDate;
 
     public User(final long id,
-                @Nullable final String login,
                 @NonNull final String email,
                 @Nullable final String firstName,
                 @Nullable final String secondName,
@@ -67,7 +64,6 @@ public class User implements Serializable {
                 "UserRole can't be null!");
 
         this.id = id;
-        this.login = login;
         this.email = email;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -87,14 +83,6 @@ public class User implements Serializable {
     public String getPass() { return pass; }
 
     public void setPass(String pass) { this.pass = pass; }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
     @Nullable
     public String getFirstName() {
