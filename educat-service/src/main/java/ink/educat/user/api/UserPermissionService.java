@@ -1,4 +1,10 @@
+package ink.educat.user.api;
 
+import ink.educat.user.api.Entities.User;
+
+/**
+ * Сервис для проверки прав доступа пользователей
+ */
 public interface UserPermissionService {
      
      /**

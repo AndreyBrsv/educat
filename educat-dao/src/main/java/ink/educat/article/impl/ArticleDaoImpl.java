@@ -29,7 +29,7 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
-    public void saveOrUpdate(Iterable<Article> articles) {
+    public void update(Iterable<Article> articles) {
 
     }
 
