@@ -2,6 +2,7 @@ package ink.educat.user.Impl;
 
 import com.google.common.base.Preconditions;
 import ink.educat.user.api.Entities.User;
+import ink.educat.user.api.NotEnoughPermissionsException;
 import ink.educat.user.api.UserPermissionDao;
 import ink.educat.user.api.UserPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Сервис для проверки прав доступа.
+ *
+ * @author Ilya Mikheev
+ * @see UserPermissionService
+ * @see UserPermissionDao
+ */
 @Service
 public class UserPermissionServiceImpl implements UserPermissionService {
 
@@ -26,7 +34,7 @@ public class UserPermissionServiceImpl implements UserPermissionService {
     }
 
     @Override
-    public boolean isAccessAllowed(@NonNull final User user, @NonNull final String permission) {
+    public void guardian(@NonNull final User user, @NonNull final String permission) {
         //noinspection ConstantConditions
         Preconditions.checkArgument(
                 user != null,
@@ -45,6 +53,8 @@ public class UserPermissionServiceImpl implements UserPermissionService {
 
         // Так как для конкретного пермишена доступные роли (в первои итерации)
         // будут содержаться в строке ввида "ADMIN, TUTOR, ...", то проверяем на contains()
-        return availableRoleList.contains(user.getUserRole().name());
+        if (!availableRoleList.contains(user.getUserRole().name())) {
+            throw new NotEnoughPermissionsException("Not enough access permissions!");
+        }
     }
 }
