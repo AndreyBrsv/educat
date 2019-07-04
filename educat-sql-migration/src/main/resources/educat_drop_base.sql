@@ -1,6 +1,6 @@
 -- Дроп всех таблиц для пересоздания
 
-drop table ec_users;
+drop table ec_user;
 
 drop table ec_user_roles;
 
