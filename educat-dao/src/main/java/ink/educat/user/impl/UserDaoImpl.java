@@ -77,7 +77,7 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValue("email", email);
 
         final List<User> userList = jdbcTemplate.query(
-                "SELECT DISTINCT * FROM EC_USER U \n" +
+                "SELECT DISTINCT * FROM EC_USERS U \n" +
                         "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
                         "WHERE EMAIL = :email",
                 userRowMapper,
@@ -110,7 +110,7 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValue("user_id", id);
 
         final List<User> userList = jdbcTemplate.query(
-                "SELECT DISTINCT * FROM EC_USER U \n" +
+                "SELECT DISTINCT * FROM EC_USERS U \n" +
                         "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
                         "WHERE USER_ID = :user_id",
                 userRowMapper,
@@ -163,7 +163,7 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValue("user_ids", validIds);
 
         final List<User> userList = jdbcTemplate.query(
-                "SELECT DISTINCT * FROM EC_USER U \n" +
+                "SELECT DISTINCT * FROM EC_USERS U \n" +
                         "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
                         "WHERE USER_ID IN (:user_ids)",
                 userRowMapper,
@@ -224,7 +224,7 @@ public class UserDaoImpl implements UserDao {
 
         if(user.getUserStatus() == UserStatus.DELETED)
             jdbcTemplate.queryForMap(
-                    "DELETE FROM EC_USER WHERE USER_ID = :id",
+                    "DELETE FROM EC_USERS WHERE USER_ID = :id",
                     mapSqlParameterSource);
     }
 
