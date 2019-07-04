@@ -34,7 +34,6 @@ public class UserDaoImpl implements UserDao {
         final UserStatus userStatus = UserStatus.parseByName(resultSet.getString("status"));
         return new User(
                 resultSet.getLong("user_id"),
-                resultSet.getString("login"),
                 resultSet.getString("email"),
                 resultSet.getString("first_name"),
                 resultSet.getString("second_name"),
@@ -46,7 +45,6 @@ public class UserDaoImpl implements UserDao {
     private Map<String, Object> userMapper(User user) {
         Map<String, Object> values = new ManagedMap<>();
             values.put("user_id", user.getId());
-            values.put("login", user.getLogin());
             values.put("pass", user.getPass());
             values.put("email", user.getEmail());
             values.put("first_name", user.getFirstName());
@@ -79,7 +77,7 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValue("email", email);
 
         final List<User> userList = jdbcTemplate.query(
-                "SELECT DISTINCT * FROM EC_USERS U \n" +
+                "SELECT DISTINCT * FROM EC_USER U \n" +
                         "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
                         "WHERE EMAIL = :email",
                 userRowMapper,
@@ -112,7 +110,7 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValue("user_id", id);
 
         final List<User> userList = jdbcTemplate.query(
-                "SELECT DISTINCT * FROM EC_USERS U \n" +
+                "SELECT DISTINCT * FROM EC_USER U \n" +
                         "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
                         "WHERE USER_ID = :user_id",
                 userRowMapper,
@@ -165,7 +163,7 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValue("user_ids", validIds);
 
         final List<User> userList = jdbcTemplate.query(
-                "SELECT DISTINCT * FROM EC_USERS U \n" +
+                "SELECT DISTINCT * FROM EC_USER U \n" +
                         "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
                         "WHERE USER_ID IN (:user_ids)",
                 userRowMapper,
@@ -200,13 +198,13 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValues(userMapper(user));
 
         jdbcTemplate.update(
-                "INSERT INTO EC_USERS \n" +
-                        "(user_role_id, email, login, pass, first_name, second_name, status) \n" +
+                "INSERT INTO EC_USER \n" +
+                        "(user_role_id, email, pass, first_name, second_name, status) \n" +
                         "VALUES " +
-                        "(:UserRoleId, :email, :login, :pass, :first_name, :second_name, :UserStatus) \n" +
+                        "(:UserRoleId, :email, :pass, :first_name, :second_name, :UserStatus) \n" +
                         "ON CONFLICT (USER_ID)" +
                         "DO UPDATE SET \n" +
-                        "login = :login, email = :email, \n" +
+                        "email = :email, \n" +
                         "first_name = :first_name, second_name = :second_name, \n" +
                         "user_status = :user_status, user_role = :user_role \n",
                 mapSqlParameterSource);
@@ -226,7 +224,7 @@ public class UserDaoImpl implements UserDao {
 
         if(user.getUserStatus() == UserStatus.DELETED)
             jdbcTemplate.queryForMap(
-                    "DELETE FROM EC_USERS WHERE USER_ID = :id",
+                    "DELETE FROM EC_USER WHERE USER_ID = :id",
                     mapSqlParameterSource);
     }
 
