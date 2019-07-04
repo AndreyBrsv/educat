@@ -180,7 +180,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * {@inheritDoc}
      */
-    public void Update(@NonNull final Iterable<User> users) {
+    public void update(@NonNull final Iterable<User> users) {
         //TODO https://stackoverflow.com/questions/20360574/why-springs-jdbctemplate-batchupdate-so-slow
         //TODO выбрать вариант
     }
@@ -226,10 +226,5 @@ public class UserDaoImpl implements UserDao {
             jdbcTemplate.queryForMap(
                     "DELETE FROM EC_USERS WHERE USER_ID = :id",
                     mapSqlParameterSource);
-    }
-
-    @Override
-    public void saveOrUpdate(Iterable<User> users) {
-
     }
 }

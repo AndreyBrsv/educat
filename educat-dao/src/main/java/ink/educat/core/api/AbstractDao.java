@@ -31,11 +31,11 @@ public interface AbstractDao<Entity> {
     Collection<Entity> findByIDs(final Iterable<Long> ids);
 
     /**
-     * Выполняет батчевое сохранение сущностей, лежащих в коллекции
+     * Выполняет батчевое обновление сущностей, лежащих в коллекции
      *
      * @param entities - коллекция сущностей
      */
-    void saveOrUpdate(final Iterable<Entity> entities);
+    void update(final Iterable<Entity> entities);
 
     /**
      * Выполняет сохранение/обновление сущности
