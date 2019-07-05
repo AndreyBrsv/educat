@@ -3,14 +3,15 @@
 -- *ПОЛЬЗОВАТЕЛИ*
 -- Роли
 INSERT INTO ec_user_roles (user_role_id, role_name, role_description) VALUES
-(1, 'admin', 'administration of educat'),
-(2, 'moderator', 'moderation of educat'),
-(3, 'company', 'front compnay of educat'),
-(4, 'tutor', 'tutors of educat'),
-(5, 'user', 'educator');
+(1, 'ADMIN', 'administration of educat'),
+(2, 'MODERATOR', 'moderation of educat'),
+(3, 'COMPANY', 'front compnay of educat'),
+(4, 'TUTOR', 'tutors of educat'),
+(5, 'USER', 'educator'),
+(6, 'TESTER','some role for tests');
 
 -- Пользователи
-INSERT INTO ec_users (user_role_id, email, pass, first_name, second_name, status) VALUES
+INSERT INTO ec_users (user_role_id, email, password, first_name, second_name, status) VALUES
             (1, 'andreybrsv@yandex.ru', '12345', 'Andrey', 'Borisov', 'ACTIVE'),
             (1, 'ilyamikheev@yandex.ru', '12345', 'Ilya', 'Mikheev', 'ACTIVE'),
             (1, 'khabibullinvasiliy@yandex.ru', '12345', 'Vasiliy', 'Khabibullin', 'ACTIVE'),

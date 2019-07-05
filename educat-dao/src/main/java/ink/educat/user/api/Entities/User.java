@@ -2,7 +2,6 @@ package ink.educat.user.api.Entities;
 
 import com.google.common.base.Preconditions;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 
@@ -27,10 +26,10 @@ public class User implements Serializable {
     @NonNull
     private String email;
 
-    @Nullable
+    @NonNull
     private String firstName;
 
-    @Nullable
+    @NonNull
     private String secondName;
 
     @NonNull
@@ -44,12 +43,19 @@ public class User implements Serializable {
 
     public User(final long id,
                 @NonNull final String email,
-                @Nullable final String firstName,
-                @Nullable final String secondName,
+                @NonNull final String firstName,
+                @NonNull final String secondName,
                 @NonNull final UserStatus userStatus,
                 @NonNull final UserRole userRole
     ) {
-
+        //noinspection ConstantConditions
+        Preconditions.checkArgument(
+                firstName != null && !firstName.isEmpty(),
+                "First name can't be null or empty!");
+        //noinspection ConstantConditions
+        Preconditions.checkArgument(
+                secondName != null && !secondName.isEmpty(),
+                "Second name can't be null or empty!");
         //noinspection ConstantConditions
         Preconditions.checkArgument(
                 email != null && !email.isEmpty(),
@@ -84,21 +90,21 @@ public class User implements Serializable {
 
     public void setPass(String pass) { this.pass = pass; }
 
-    @Nullable
+    @NonNull
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(@Nullable String firstName) {
+    public void setFirstName(@NonNull String firstName) {
         this.firstName = firstName;
     }
 
-    @Nullable
+    @NonNull
     public String getSecondName() {
         return secondName;
     }
 
-    public void setSecondName(@Nullable String secondName) {
+    public void setSecondName(@NonNull String secondName) {
         this.secondName = secondName;
     }
 

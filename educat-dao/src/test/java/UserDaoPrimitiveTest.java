@@ -29,5 +29,7 @@ public class UserDaoPrimitiveTest {
         // Однако, это будет означать, что наше приложение таки лезет в базу и все работает.
         User user = userDao.getUserByEmail("andreybrsv@yandex.ru");
 
+        System.out.println(user.getFirstName());
+
     }
 }

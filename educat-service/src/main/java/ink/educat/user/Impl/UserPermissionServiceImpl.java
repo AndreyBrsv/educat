@@ -34,7 +34,7 @@ public class UserPermissionServiceImpl implements UserPermissionService {
     }
 
     @Override
-    public void guardian(@NonNull final User user, @NonNull final String permission) {
+    public void guard(@NonNull final User user, @NonNull final String permission) {
         //noinspection ConstantConditions
         Preconditions.checkArgument(
                 user != null,

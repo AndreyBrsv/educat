@@ -9,7 +9,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  */
 public enum  UserStatus {
 
-    AVAILABLE("Доступен"),
+    ACTIVE("Активный"),
     BLOCKED("Заблокирован"),
     DELETED("Удален");
 

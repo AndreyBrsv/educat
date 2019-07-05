@@ -41,6 +41,6 @@ public interface UserPermissionService {
      * @param permission - название пермишена для которого требуется проверка
      * @throws NotEnoughPermissionsException если у роли пользователя нет данных прав.
      */
-     void guardian(User user, String permission);
+     void guard(User user, String permission);
 }
 

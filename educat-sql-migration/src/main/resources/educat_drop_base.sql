@@ -2,7 +2,12 @@
 
 drop table ec_users;
 
+drop table ec_role_permission_references;
+
 drop table ec_user_roles;
+
+drop table ec_user_permissions;
+
 
 drop table ec_educational_courses;
 

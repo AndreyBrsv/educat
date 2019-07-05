@@ -43,6 +43,5 @@ public enum UserRole {
         return displayableName;
     }
 
-    @NonNull
     public int getCode() { return code; }
 }

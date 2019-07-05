@@ -1,16 +1,15 @@
 package ink.educat.user.impl;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableCollection;
 import ink.educat.user.api.Entities.User;
 import ink.educat.user.api.Entities.UserRole;
 import ink.educat.user.api.Entities.UserStatus;
 import ink.educat.user.api.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.ManagedMap;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
@@ -22,7 +21,7 @@ import java.util.Map;
 public class UserDaoImpl implements UserDao {
 
     // Поля для @Autowired, не забывать добавлять в конструктор
-    private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     // Мапперы
     /**
@@ -59,8 +58,8 @@ public class UserDaoImpl implements UserDao {
     //TODO реализовать метод для валидации входных параметров на обновление и создание пользователя
 
     @Autowired
-    public UserDaoImpl(final JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public UserDaoImpl(final NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     /**
@@ -76,12 +75,12 @@ public class UserDaoImpl implements UserDao {
         final MapSqlParameterSource mapSqlParameterSource =
                 new MapSqlParameterSource().addValue("email", email);
 
-        final List<User> userList = jdbcTemplate.query(
+        final List<User> userList = namedParameterJdbcTemplate.query(
                 "SELECT DISTINCT * FROM EC_USERS U \n" +
                         "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
                         "WHERE EMAIL = :email",
-                userRowMapper,
-                mapSqlParameterSource
+                mapSqlParameterSource,
+                userRowMapper
         );
 
         if (userList.isEmpty()) {
@@ -109,12 +108,12 @@ public class UserDaoImpl implements UserDao {
         final MapSqlParameterSource mapSqlParameterSource =
                 new MapSqlParameterSource().addValue("user_id", id);
 
-        final List<User> userList = jdbcTemplate.query(
+        final List<User> userList = namedParameterJdbcTemplate.query(
                 "SELECT DISTINCT * FROM EC_USERS U \n" +
                         "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
                         "WHERE USER_ID = :user_id",
-                userRowMapper,
-                mapSqlParameterSource
+                mapSqlParameterSource,
+                userRowMapper
         );
 
         if(userList.isEmpty()) {
@@ -162,12 +161,12 @@ public class UserDaoImpl implements UserDao {
         final MapSqlParameterSource mapSqlParameterSource =
                 new MapSqlParameterSource().addValue("user_ids", validIds);
 
-        final List<User> userList = jdbcTemplate.query(
+        final List<User> userList = namedParameterJdbcTemplate.query(
                 "SELECT DISTINCT * FROM EC_USERS U \n" +
                         "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
                         "WHERE USER_ID IN (:user_ids)",
-                userRowMapper,
-                mapSqlParameterSource
+                mapSqlParameterSource,
+                userRowMapper
         );
 
         if(userList.isEmpty()) {
@@ -197,7 +196,7 @@ public class UserDaoImpl implements UserDao {
         final MapSqlParameterSource mapSqlParameterSource =
                 new MapSqlParameterSource().addValues(userMapper(user));
 
-        jdbcTemplate.update(
+        namedParameterJdbcTemplate.update(
                 "INSERT INTO EC_USER \n" +
                         "(user_role_id, email, pass, first_name, second_name, status) \n" +
                         "VALUES " +
@@ -223,7 +222,7 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValues(userMapper(user));
 
         if(user.getUserStatus() == UserStatus.DELETED)
-            jdbcTemplate.queryForMap(
+            namedParameterJdbcTemplate.queryForMap(
                     "DELETE FROM EC_USERS WHERE USER_ID = :id",
                     mapSqlParameterSource);
     }
