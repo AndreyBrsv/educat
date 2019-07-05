@@ -1,13 +1,10 @@
 package ink.educat.user.api.Entities;
 
 import com.google.common.base.Preconditions;
-import jdk.vm.ci.meta.Local;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import javax.xml.transform.sax.SAXResult;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
