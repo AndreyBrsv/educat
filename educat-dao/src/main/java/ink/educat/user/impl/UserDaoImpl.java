@@ -28,18 +28,16 @@ public class UserDaoImpl implements UserDao {
      * Использовать данный маппер везде в {@link UserDaoImpl} в методах,
      * где требуется вернуть пользователя.
      */
-    private final RowMapper<User> userRowMapper = ((resultSet, i) -> {
-        final UserRole userRole = UserRole.parseByName(resultSet.getString("role_name"));
-        final UserStatus userStatus = UserStatus.parseByName(resultSet.getString("status"));
-        return new User(
-                resultSet.getLong("user_id"),
-                resultSet.getString("email"),
-                resultSet.getString("first_name"),
-                resultSet.getString("second_name"),
-                userStatus,
-                userRole
-        );
-    });
+    private final RowMapper<User> userRowMapper = ((resultSet, i) -> new User(
+            resultSet.getLong("user_id"),
+            resultSet.getString("email"),
+            resultSet.getBoolean("email_confirmed"),
+            resultSet.getString("first_name"),
+            resultSet.getString("second_name"),
+            UserStatus.parseByName(resultSet.getString("status")),
+            UserRole.parseByName(resultSet.getString("role_name")),
+            resultSet.getTimestamp("registration_date").toLocalDateTime()
+    ));
 
     private Map<String, Object> userMapper(User user) {
         Map<String, Object> values = new ManagedMap<>();
@@ -54,8 +52,6 @@ public class UserDaoImpl implements UserDao {
 
         return values;
     }
-
-    //TODO реализовать метод для валидации входных параметров на обновление и создание пользователя
 
     @Autowired
     public UserDaoImpl(final NamedParameterJdbcTemplate namedParameterJdbcTemplate) {

@@ -20,6 +20,7 @@ public class WebApplicationInitializer implements org.springframework.web.WebApp
     public void onStartup(@NonNull ServletContext servletContext) throws ServletException {
 
         // Создаем контекст с сервисами
+        LOGGER.debug("Поднимаю контейнер сервисов.");
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(EducatServiceConfiguration.class);
         rootContext.refresh();
