@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         //noinspection ConstantConditions
         Preconditions.checkArgument(
                 deleteStrategy != null,
-                "User can't be null!");
+                "Delete strategy can't be null!");
         switch (deleteStrategy) {
             case NAIVE:
                 userDao.delete(user);
