@@ -2,6 +2,10 @@ package ink.educat.user.api;
 
 import java.util.Map;
 
+/**
+ * Объект доступа к данным для работы с правами пользователей.
+ * Для дополнительной информации смотреть таблицы: EC_USER_ROLES, EC_USER_PERMISSIONS.
+ */
 public interface UserPermissionDao {
 
     /**

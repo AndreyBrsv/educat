@@ -9,12 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>educat-mvc</artifactId>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>educat-mvc-web</module>
-    </modules>
+    <artifactId>educat-test</artifactId>
 
     <dependencies>
         <dependency>

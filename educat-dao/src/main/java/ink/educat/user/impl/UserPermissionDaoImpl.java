@@ -8,6 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Объект доступа к данным для работы с правами пользователей.
+ *
+ * @see UserPermissionDao
+ */
 @Repository
 public class UserPermissionDaoImpl implements UserPermissionDao {
 
