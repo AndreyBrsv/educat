@@ -1,6 +1,9 @@
 package ink.educat.user.Impl;
 
+import com.google.common.base.Preconditions;
+import ink.educat.core.api.DeleteStrategy;
 import ink.educat.user.api.Entities.User;
+import ink.educat.user.api.Entities.UserStatus;
 import ink.educat.user.api.UserDao;
 import ink.educat.user.api.UserService;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -35,5 +38,31 @@ public class UserServiceImpl implements UserService {
         // чтобы в случае чего упасть раньше, чем метод
         // полезет в базу.
         return userDao.getUserByEmail(email);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteWithStrategy(@NonNull final User user, @NonNull final DeleteStrategy deleteStrategy) {
+        //noinspection ConstantConditions
+        Preconditions.checkArgument(
+                user != null,
+                "User can't be null!");
+        //noinspection ConstantConditions
+        Preconditions.checkArgument(
+                deleteStrategy != null,
+                "User can't be null!");
+        switch (deleteStrategy) {
+            case NAIVE:
+                userDao.delete(user);
+                break;
+            case CHANGE_STATUS:
+                user.setUserStatus(UserStatus.DELETED);
+                userDao.saveOrUpdate(user);
+                break;
+            default:
+                throw new IllegalStateException("Unsupported delete strategy!");
+        }
     }
 }

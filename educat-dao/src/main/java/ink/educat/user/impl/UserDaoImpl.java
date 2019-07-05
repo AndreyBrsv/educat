@@ -197,15 +197,16 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValues(userMapper(user));
 
         namedParameterJdbcTemplate.update(
-                "INSERT INTO EC_USER \n" +
-                        "(user_role_id, email, pass, first_name, second_name, status) \n" +
+                "INSERT INTO EC_USERS \n" +
+                        "(user_role_id, email, password, first_name, second_name, status) \n" +
                         "VALUES " +
                         "(:UserRoleId, :email, :pass, :first_name, :second_name, :UserStatus) \n" +
                         "ON CONFLICT (USER_ID)" +
                         "DO UPDATE SET \n" +
                         "email = :email, \n" +
                         "first_name = :first_name, second_name = :second_name, \n" +
-                        "user_status = :user_status, user_role = :user_role \n",
+                        "status = :user_status, \n" +
+                        "user_role_id = (SELECT DISTINCT user_role_id FROM ec_user_roles WHERE user_role_id = :user_role)",
                 mapSqlParameterSource);
     }
 
