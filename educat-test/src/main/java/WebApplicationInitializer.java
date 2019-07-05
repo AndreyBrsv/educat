@@ -21,6 +21,7 @@ public class WebApplicationInitializer implements org.springframework.web.WebApp
 
         // Создаем контекст с сервисами
         LOGGER.debug("Поднимаю контейнер сервисов.");
+        System.out.println("Поднимаю контейнер сервисов");
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(EducatServiceConfiguration.class);
         rootContext.refresh();
