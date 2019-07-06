@@ -21,14 +21,15 @@ public class WebApplicationInitializer implements org.springframework.web.WebApp
         // Создаем контекст с сервисами
         //LOGGER.debug("Поднимаю контейнер сервисов.");
         System.out.println("Поднимаю контейнер сервисов");
-        AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        //rootContext.register(EducatServiceConfiguration.class);
-        rootContext.refresh();
-        // Добавляем слушателя к контейнеру сервлетов
-        servletContext.addListener(new ContextLoaderListener(rootContext));
+//        AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
+//        //rootContext.register(EducatServiceConfiguration.class);
+//        rootContext.refresh();
+//        // Добавляем слушателя к контейнеру сервлетов
+//        servletContext.addListener(new ContextLoaderListener(rootContext));
         // Добавляем конфигурацию диспечер-сервлетов
         AnnotationConfigWebApplicationContext annotationConfigWebApplicationContext =
                 new AnnotationConfigWebApplicationContext();
+        annotationConfigWebApplicationContext.register(WebMvcConfig.class);
         annotationConfigWebApplicationContext.refresh();
         // Добавляем сам диспечер сервлет
         final DispatcherServlet dispatcherServlet = new DispatcherServlet(annotationConfigWebApplicationContext);
