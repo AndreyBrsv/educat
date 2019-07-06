@@ -72,8 +72,8 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValue("email", email);
 
         final List<User> userList = namedParameterJdbcTemplate.query(
-                "SELECT DISTINCT * FROM EC_USERS U \n" +
-                        "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
+                "SELECT * FROM EC_USERS U \n" +
+                        "JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
                         "WHERE EMAIL = :email",
                 mapSqlParameterSource,
                 userRowMapper
@@ -105,8 +105,8 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValue("user_id", id);
 
         final List<User> userList = namedParameterJdbcTemplate.query(
-                "SELECT DISTINCT * FROM EC_USERS U \n" +
-                        "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
+                "SELECT * FROM EC_USERS U \n" +
+                        "JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
                         "WHERE USER_ID = :user_id",
                 mapSqlParameterSource,
                 userRowMapper
@@ -158,8 +158,8 @@ public class UserDaoImpl implements UserDao {
                 new MapSqlParameterSource().addValue("user_ids", validIds);
 
         final List<User> userList = namedParameterJdbcTemplate.query(
-                "SELECT DISTINCT * FROM EC_USERS U \n" +
-                        "LEFT JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
+                "SELECT * FROM EC_USERS U \n" +
+                        "JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
                         "WHERE USER_ID IN (:user_ids)",
                 mapSqlParameterSource,
                 userRowMapper
