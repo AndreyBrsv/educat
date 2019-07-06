@@ -1,4 +1,3 @@
-import ink.educat.configuration.EducatServiceConfiguration;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,7 @@ import javax.servlet.ServletRegistration;
 
 public class WebApplicationInitializer implements org.springframework.web.WebApplicationInitializer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WebApplicationInitializer.class);
+    //private static final Logger LOGGER = LoggerFactory.getLogger(WebApplicationInitializer.class);
 
     private static final String MAPPING_URL = "/*";
 
@@ -20,10 +19,10 @@ public class WebApplicationInitializer implements org.springframework.web.WebApp
     public void onStartup(@NonNull ServletContext servletContext) throws ServletException {
 
         // Создаем контекст с сервисами
-        LOGGER.debug("Поднимаю контейнер сервисов.");
+        //LOGGER.debug("Поднимаю контейнер сервисов.");
         System.out.println("Поднимаю контейнер сервисов");
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register(EducatServiceConfiguration.class);
+        //rootContext.register(EducatServiceConfiguration.class);
         rootContext.refresh();
         // Добавляем слушателя к контейнеру сервлетов
         servletContext.addListener(new ContextLoaderListener(rootContext));

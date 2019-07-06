@@ -19,7 +19,6 @@
         <module>educat-dao</module>
         <module>educat-mvc</module>
         <module>educat-service</module>
-        <module>educat-test</module>
     </modules>
 
     <dependencies>
@@ -95,7 +94,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.26</version>
         </dependency>
-
 
     </dependencies>
 
