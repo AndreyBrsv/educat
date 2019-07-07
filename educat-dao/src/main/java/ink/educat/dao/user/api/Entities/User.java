@@ -26,6 +26,7 @@ public class User implements Serializable {
     private long id;
 
     /** Пароль пользователя */
+    @NonNull
     private String password;
 
     /** Электронная почта пользователя */
@@ -62,6 +63,7 @@ public class User implements Serializable {
     public User(final long id,
                 @NonNull final String email,
                 final boolean isEmailConfirmed,
+                @NonNull final String password,
                 @NonNull final String firstName,
                 @NonNull final String secondName,
                 @NonNull final UserStatus userStatus,
@@ -80,6 +82,10 @@ public class User implements Serializable {
         Preconditions.checkArgument(
                 email != null && !email.isEmpty(),
                 "Email can't be null or empty!");
+        //noinspection ConstantConditions
+        Preconditions.checkArgument(
+                password != null && !password.isEmpty(),
+                "Password can't be null or empty!");
         //noinspection ConstantConditions
         Preconditions.checkArgument(
                 userStatus != null,
@@ -101,6 +107,7 @@ public class User implements Serializable {
         this.userStatus = userStatus;
         this.userRole = userRole;
         this.registrationDate = registrationDate;
+        this.password = password;
 
     }
 

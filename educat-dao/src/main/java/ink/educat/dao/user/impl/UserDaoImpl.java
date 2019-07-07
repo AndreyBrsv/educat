@@ -32,6 +32,7 @@ public class UserDaoImpl implements UserDao {
             resultSet.getLong("user_id"),
             resultSet.getString("email"),
             resultSet.getBoolean("email_confirmed"),
+            resultSet.getString("password"),
             resultSet.getString("first_name"),
             resultSet.getString("second_name"),
             UserStatus.parseByName(resultSet.getString("status")),
@@ -42,13 +43,13 @@ public class UserDaoImpl implements UserDao {
     private Map<String, Object> userMapper(User user) {
         Map<String, Object> values = new ManagedMap<>();
             values.put("user_id", user.getId());
-            values.put("pass", user.getPass());
+            values.put("password", user.getPassword());
             values.put("email", user.getEmail());
             values.put("first_name", user.getFirstName());
             values.put("second_name", user.getSecondName());
-            values.put("UserStatus", user.getUserStatus());
-            values.put("UserRole", user.getUserRole());
-            values.put("UserRoleId", user.getUserRole().getCode());
+            values.put("user_status", user.getUserStatus());
+            values.put("user_role", user.getUserRole());
+            values.put("user_role_id", user.getUserRole().getCode());
 
         return values;
     }
@@ -194,15 +195,15 @@ public class UserDaoImpl implements UserDao {
 
         namedParameterJdbcTemplate.update(
                 "INSERT INTO EC_USERS \n" +
-                        "(user_role_id, email, password, first_name, second_name, status) \n" +
+                        "(USER_ROLE_ID, EMAIL, PASSWORD, FIRST_NAME, SECOND_NAME, STATUS) \n" +
                         "VALUES " +
-                        "(:UserRoleId, :email, :pass, :first_name, :second_name, :UserStatus) \n" +
+                        "(:user_role_id, :email, :password, :first_name, :second_name, :user_status) \n" +
                         "ON CONFLICT (USER_ID)" +
                         "DO UPDATE SET \n" +
-                        "email = :email, \n" +
-                        "first_name = :first_name, second_name = :second_name, \n" +
-                        "status = :user_status, \n" +
-                        "user_role_id = (SELECT DISTINCT user_role_id FROM ec_user_roles WHERE user_role_id = :user_role)",
+                        "EMAIL = :email, \n" +
+                        "FIRST_NAME = :first_name, SECOND_NAME = :second_name, \n" +
+                        "STATUS = :user_status, \n" +
+                        "USER_ROLE_ID = (SELECT DISTINCT USER_ROLE_ID FROM EC_USER_ROLES WHERE USER_ROLE_ID = :user_role)",
                 mapSqlParameterSource);
     }
 
