@@ -9,7 +9,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan("ink.educat")
+@ComponentScan("ink.educat.dao")
 public class EducatDaoConfiguration {
     // Здесь организуем пул соединений к базе
 

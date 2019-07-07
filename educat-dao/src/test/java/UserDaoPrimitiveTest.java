@@ -1,11 +1,11 @@
 import ink.educat.configuration.EducatDaoConfiguration;
-import ink.educat.user.api.Entities.User;
-import ink.educat.user.api.UserDao;
+import ink.educat.dao.user.api.Entities.User;
+import ink.educat.dao.user.api.UserDao;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * Это ненастоящий тест, настоящие Unit Tests нужно писать несколько позже
- * тут просто main для проверки работы методов {@link  ink.educat.user.api.UserDao}
+ * тут просто main для проверки работы методов {@link  UserDao}
  */
 public class UserDaoPrimitiveTest {
     public static void main(String[] args) {
