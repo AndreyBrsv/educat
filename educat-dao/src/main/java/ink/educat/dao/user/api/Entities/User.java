@@ -1,8 +1,9 @@
 package ink.educat.dao.user.api.Entities;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,9 +18,9 @@ import java.time.LocalDateTime;
  * @see UserRole
  *
  */
-//TODO: После устаканивания структуры данного pojo,
-//TODO: определить методы toString(), hashCode(), equals(User user)
 public class User implements Serializable {
+
+    private static final long serialVersionUID = 768640870473055505L;
 
     /** Id пользователя */
     private long id;
@@ -57,7 +58,6 @@ public class User implements Serializable {
     /** Дата регистрации */
     @NonNull
     private LocalDateTime registrationDate;
-    //private LocalDate lastLoginDate;
 
     public User(final long id,
                 @NonNull final String email,
@@ -111,10 +111,6 @@ public class User implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-
-    public String getPass() { return password; }
-
-    public void setPass(String pass) { this.password = pass; }
 
     @NonNull
     public String getFirstName() {
@@ -188,5 +184,60 @@ public class User implements Serializable {
 
     public void setRegistrationDate(@NonNull LocalDateTime registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    @NonNull
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NonNull String password) {
+        this.password = password;
+    }
+
+    @Nullable
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(@Nullable String middleName) {
+        this.middleName = middleName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id +
+//                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", isEmailConfirmed=" + isEmailConfirmed +
+                ", firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", userStatus=" + userStatus +
+                ", userRole=" + userRole +
+                ", registrationDate=" + registrationDate +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                isEmailConfirmed == user.isEmailConfirmed &&
+                Objects.equal(password, user.password) &&
+                Objects.equal(email, user.email) &&
+                Objects.equal(firstName, user.firstName) &&
+                Objects.equal(secondName, user.secondName) &&
+                Objects.equal(middleName, user.middleName) &&
+                userStatus == user.userStatus &&
+                userRole == user.userRole &&
+                Objects.equal(registrationDate, user.registrationDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id, password, email, isEmailConfirmed, firstName, secondName, middleName, userStatus, userRole, registrationDate);
     }
 }
