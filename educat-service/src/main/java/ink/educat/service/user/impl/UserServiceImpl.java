@@ -11,6 +11,9 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Сервис для работы с пользователями. Для управления пользователями
  * используйте его, а не {@link UserDao}.
@@ -20,7 +23,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao;
+    //TODO: забить сюда регулярное выражение для валидации адреса электронной почты
+    private static final String EMAIL_TEMPLATE = "*";
+
+    private final UserDao userDao;
+    private final Pattern emailPattern = Pattern.compile(EMAIL_TEMPLATE);
 
     @Autowired
     public UserServiceImpl(final UserDao userDao) {
@@ -33,10 +40,18 @@ public class UserServiceImpl implements UserService {
     @Override
     @Nullable
     public User getUserByEmail(@NonNull String email) {
-        // Тут провести валидацию формата email
-        // на основе метода match и регулярных выражений,
-        // чтобы в случае чего упасть раньше, чем метод
-        // полезет в базу.
+        //noinspection ConstantConditions
+        Preconditions.checkArgument(
+                email != null && !email.isEmpty(),
+                "Email can't be null or empty!");
+        // Относительно многопоточного доступа к этому методу, тут можно не
+        // волноваться, так как java.util.regex.Pattern.matcher - потокобезопасный метод.
+        // Внутри у него synchronized.
+        final Matcher matcher = emailPattern.matcher(email);
+        Preconditions.checkState(
+                matcher.find(),
+                "Invalid email address format!"
+        );
         return userDao.getUserByEmail(email);
     }
 

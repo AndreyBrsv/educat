@@ -12,6 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 @ComponentScan("ink.educat.controllers")
+//@Import(EducatServiceConfiguration.class)
 public class DispatcherCongiguration extends WebMvcConfigurationSupport {
 
 

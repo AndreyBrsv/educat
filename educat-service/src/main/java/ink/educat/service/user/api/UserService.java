@@ -14,10 +14,12 @@ public interface UserService {
      * или null, если пользователь не найден 
      */
     @Nullable
-    User getUserByEmail(@NonNull String email);
+    User getUserByEmail(@NonNull String email) throws IllegalArgumentException;
 
     /**
      * Метод, позволяющий удалить пользователя;
+     *
+     * @see DeleteStrategy
      *
      * @param user - пользователь
      * @param deleteStrategy - стратегия удаления

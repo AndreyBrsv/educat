@@ -16,9 +16,6 @@ public interface UserDao extends AbstractDao<User> {
      * @return null - в случае, если пользователь не найден и
      * экземпляр класса {@link User} если найден.
      */
-    //TODO: вместо возвращения null нужно сделать бросок
-    //TODO: специального исключения, которое будет перехвачено
-    //TODO: на более высоком уровне и обернуто в http response
     @Nullable
     User getUserByEmail(@NonNull String email);
 

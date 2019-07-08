@@ -80,9 +80,10 @@ public class UserDaoImpl implements UserDao {
                 userRowMapper
         );
 
-        if (userList.isEmpty()) {
-            return null;
-        }
+        Preconditions.checkState(
+                !userList.isEmpty(),
+                "No user found with given email!"
+        );
 
         Preconditions.checkState(
                 userList.size() == 1,
