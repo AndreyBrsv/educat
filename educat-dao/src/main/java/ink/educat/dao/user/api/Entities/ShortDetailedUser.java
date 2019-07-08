@@ -9,6 +9,7 @@ import java.io.Serializable;
  * Эта сущность нужна для предоставления пользователю информации
  * о других пользователях.
  *
+ * @see User
  */
 public class ShortDetailedUser implements Serializable {
 
@@ -32,4 +33,45 @@ public class ShortDetailedUser implements Serializable {
 
     /** Количество подписчиков у пользователя */
     private long subscribersCount;
+
+    public ShortDetailedUser(final long id,
+                             @NonNull final String userName,
+                             @Nullable final String userInfo,
+                             @Nullable final String avatarImageReference,
+                             final long publicationsCount,
+                             final long subscribersCount) {
+        this.id = id;
+        this.userName = userName;
+        this.userInfo = userInfo;
+        this.avatarImageReference = avatarImageReference;
+        this.publicationsCount = publicationsCount;
+        this.subscribersCount = subscribersCount;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    @NonNull
+    public String getUserName() {
+        return userName;
+    }
+
+    @Nullable
+    public String getUserInfo() {
+        return userInfo;
+    }
+
+    @Nullable
+    public String getAvatarImageReference() {
+        return avatarImageReference;
+    }
+
+    public long getPublicationsCount() {
+        return publicationsCount;
+    }
+
+    public long getSubscribersCount() {
+        return subscribersCount;
+    }
 }

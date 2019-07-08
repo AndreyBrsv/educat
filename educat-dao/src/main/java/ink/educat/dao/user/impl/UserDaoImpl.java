@@ -18,14 +18,32 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+//TODO: добавить метод получения ShortDetailedPerson, и этот запрос:
+
+// Запрос выбора данный структуры
+// LEFT JOIN потому, что бывают ситуации, при которых эти таблицы пустые для пользователя с данным user_id
+//SELECT  U.USER_ID AS user_id,
+//        CONCAT(U.FIRST_NAME, ' ', U.SECOND_NAME) AS user_name,
+//        AUR.USER_INFO AS user_info,
+//        AUR.AVATAR_LINK AS avatar_link,
+//        COUNT(A.ARTICLE_ID) AS articles_count,
+//        COUNT(UTUS.SUBSCRIBED_USER_ID) AS subscribers
+//    FROM EC_USERS U
+//    LEFT JOIN EC_ADDITIONAL_USER_REFERENCES AUR ON AUR.USER_ID = U.USER_ID
+//    LEFT JOIN EC_ARTICLES A ON A.USER_ID = U.USER_ID
+//    LEFT JOIN EC_USER_TO_USER_SUBSCRIPTIONS UTUS ON UTUS.SUBSCRIBE_USER_ID = U.USER_ID
+//WHERE U.USER_ID = :user_id
+//GROUP BY (user_id, user_name, user_info, avatar_link);
+
 @Repository
 public class UserDaoImpl implements UserDao {
 
     // Поля для @Autowired, не забывать добавлять в конструктор
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    // Мапперы
     /**
+     * Мапперы из БД в Java
+     * <p>
      * Использовать данный маппер везде в {@link UserDaoImpl} в методах,
      * где требуется вернуть пользователя.
      */
@@ -41,16 +59,20 @@ public class UserDaoImpl implements UserDao {
             resultSet.getTimestamp("registration_date").toLocalDateTime()
     ));
 
+    /**
+     * Мапперы из Java в БД
+     */
     private Map<String, Object> userMapper(User user) {
+
         Map<String, Object> values = new ManagedMap<>();
-            values.put("user_id", user.getId());
-            values.put("password", user.getPassword());
-            values.put("email", user.getEmail());
-            values.put("first_name", user.getFirstName());
-            values.put("second_name", user.getSecondName());
-            values.put("user_status", user.getUserStatus());
-            values.put("user_role", user.getUserRole());
-            values.put("user_role_id", user.getUserRole().getCode());
+        values.put("user_id", user.getId());
+        values.put("password", user.getPassword());
+        values.put("email", user.getEmail());
+        values.put("first_name", user.getFirstName());
+        values.put("second_name", user.getSecondName());
+        values.put("user_status", user.getUserStatus());
+        values.put("user_role", user.getUserRole());
+        values.put("user_role_id", user.getUserRole().getCode());
 
         return values;
     }
@@ -115,7 +137,7 @@ public class UserDaoImpl implements UserDao {
                 userRowMapper
         );
 
-        if(userList.isEmpty()) {
+        if (userList.isEmpty()) {
             return null;
         }
 
@@ -163,7 +185,7 @@ public class UserDaoImpl implements UserDao {
                 userRowMapper
         );
 
-        if(userList.isEmpty()) {
+        if (userList.isEmpty()) {
             return null;
         }
 
@@ -216,9 +238,8 @@ public class UserDaoImpl implements UserDao {
         final MapSqlParameterSource mapSqlParameterSource =
                 new MapSqlParameterSource().addValues(userMapper(user));
 
-        if(user.getUserStatus() == UserStatus.DELETED)
-            namedParameterJdbcTemplate.queryForMap(
-                    "DELETE FROM EC_USERS WHERE USER_ID = :id",
-                    mapSqlParameterSource);
+        namedParameterJdbcTemplate.queryForMap(
+                "DELETE FROM EC_USERS WHERE USER_ID = :id",
+                mapSqlParameterSource);
     }
 }

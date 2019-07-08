@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
  *
  * @see UserStatus
  * @see UserRole
+ * @see ShortDetailedUser
  *
  */
 public class User implements Serializable {
