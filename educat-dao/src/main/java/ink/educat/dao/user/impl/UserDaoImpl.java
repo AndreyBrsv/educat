@@ -133,11 +133,11 @@ public class UserDaoImpl implements UserDao {
     @Nullable
     public List<User> findByIDs(@NonNull final Iterable<Long> ids) {
         final StringBuilder validIds = new StringBuilder();
-        final Iterator iterator = ids.iterator();
+        final Iterator<Long> iterator = ids.iterator();
         Long id;
 
         while (iterator.hasNext()) {
-            id = ids.iterator().next();
+            id = iterator.next();
             if (id > 0) {
                 validIds.append(id);
             }
