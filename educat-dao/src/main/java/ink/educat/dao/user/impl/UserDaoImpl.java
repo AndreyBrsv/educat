@@ -140,9 +140,9 @@ public class UserDaoImpl implements UserDao {
             id = iterator.next();
             if (id > 0) {
                 validIds.append(id);
-            }
-            if (iterator.hasNext()) {
-                validIds.append(", ");
+                if (iterator.hasNext()) {
+                    validIds.append(", ");
+                }
             }
         }
 
