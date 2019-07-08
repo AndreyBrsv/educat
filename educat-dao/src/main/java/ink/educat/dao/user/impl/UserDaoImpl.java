@@ -14,6 +14,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -132,26 +133,21 @@ public class UserDaoImpl implements UserDao {
     @Nullable
     public List<User> findByIDs(@NonNull final Iterable<Long> ids) {
         final StringBuilder validIds = new StringBuilder();
+        final Iterator iterator = ids.iterator();
         Long id;
 
-        if(ids.iterator().hasNext()) {
+        while (iterator.hasNext()) {
             id = ids.iterator().next();
-
-            if(id > 0) {
+            if (id > 0) {
                 validIds.append(id);
             }
-        }
-
-        while (ids.iterator().hasNext()) {
-            id = ids.iterator().next();
-
-            if (id > 0) {
-                validIds.append(", ").append(id);
+            if (iterator.hasNext()) {
+                validIds.append(", ");
             }
         }
 
-        Preconditions.checkArgument(
-                validIds.toString().equals(""),
+        Preconditions.checkState(
+                !validIds.toString().isEmpty(),
                 "No valid ids!"
 
         );
