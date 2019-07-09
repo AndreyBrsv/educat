@@ -16,7 +16,7 @@ public interface UserService {
      * или null, если пользователь не найден 
      */
     @Nullable
-    User getUserByEmail(@NonNull String email) throws IllegalArgumentException;
+    User getUserByEmail(@NonNull String email);
 
     /**
      * Метод, позволяющий получить "укороченную" версию пользователя. Подходит, например,

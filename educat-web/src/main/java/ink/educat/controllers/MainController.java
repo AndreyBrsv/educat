@@ -21,7 +21,11 @@ public class MainController {
     @RequestMapping(value="/", method=RequestMethod.GET)
     @ResponseBody
     public String addUser() {
-        //userService.getUserByEmail("lllll");
+        try {
+            userService.getUserByEmail("lllll");
+        } catch (Exception ex) {
+            return ex.toString();
+        }
         return "{\"Если вы это видете, значит Educat работает \":1}";
     }
 

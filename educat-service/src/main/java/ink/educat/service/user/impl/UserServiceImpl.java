@@ -24,7 +24,8 @@ import java.util.regex.Pattern;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final String EMAIL_TEMPLATE = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$";
+    // Паттерн для проверки email RFC 5322
+    private static final String EMAIL_TEMPLATE = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
     private final UserDao userDao;
     private final Pattern emailPattern = Pattern.compile(EMAIL_TEMPLATE, Pattern.CASE_INSENSITIVE);
@@ -43,7 +44,8 @@ public class UserServiceImpl implements UserService {
         //noinspection ConstantConditions
         Preconditions.checkArgument(
                 email != null && !email.isEmpty(),
-                "Email can't be null or empty!");
+                "Email can't be null or empty!"
+        );
         // Относительно многопоточного доступа к этому методу, тут можно не
         // волноваться, так как java.util.regex.Pattern.matcher - потокобезопасный метод.
         // Внутри у него synchronized.
