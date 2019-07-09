@@ -12,6 +12,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
+/**
+ * Основной конфигурационныый класс веб приложения
+ */
 public class EducatWebApplicationInitializer implements WebApplicationInitializer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EducatWebApplicationInitializer.class);

@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
      * {@inheritDoc}
      */
     @Override
-    @Nullable
+    @NonNull
     public User getUserByEmail(@NonNull String email) {
         //noinspection ConstantConditions
         Preconditions.checkArgument(

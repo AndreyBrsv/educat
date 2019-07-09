@@ -59,7 +59,7 @@ public class UserDaoImpl implements UserDao {
                     resultSet.getLong("user_id"),
                     resultSet.getString("user_name"),
                     resultSet.getString("user_info"),
-                    resultSet.getString("avatar_link"),
+                    resultSet.getString("avatar_reference"),
                     resultSet.getLong("publications_count"),
                     resultSet.getLong("subscribers")
             ));
@@ -141,7 +141,7 @@ public class UserDaoImpl implements UserDao {
         final List<ShortDetailedUser> shortDetailedUsers = namedParameterJdbcTemplate.query(
                 "SELECT U.USER_ID AS user_id, \n" +
                         "    CONCAT(U.FIRST_NAME, ' ', U.SECOND_NAME) AS user_name,\n" +
-                        "    AUR.USER_INFO AS user_info,\n" +
+                        "    AUR.INFO AS user_info,\n" +
                         "    AUR.AVATAR_LINK AS avatar_reference,\n" +
                         "    COUNT(A.ARTICLE_ID) AS publications_count,\n" +
                         "    COUNT(UTUS.SUBSCRIBED_USER_ID) AS subscribers\n" +

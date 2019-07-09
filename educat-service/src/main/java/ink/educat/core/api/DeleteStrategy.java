@@ -20,4 +20,5 @@ public enum  DeleteStrategy {
     public String getDescription() {
         return description;
     }
+
 }

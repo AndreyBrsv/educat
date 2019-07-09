@@ -29,23 +29,23 @@ public class ShortDetailedUser implements Serializable {
     private String avatarImageReference;
 
     /** Количество публикаций пользователя */
-    private long publicationsCount;
+    private long publications;
 
     /** Количество подписчиков у пользователя */
-    private long subscribersCount;
+    private long subscribers;
 
     public ShortDetailedUser(final long id,
                              @NonNull final String userName,
                              @Nullable final String userInfo,
                              @Nullable final String avatarImageReference,
-                             final long publicationsCount,
-                             final long subscribersCount) {
+                             final long publications,
+                             final long subscribers) {
         this.id = id;
         this.userName = userName;
         this.userInfo = userInfo;
         this.avatarImageReference = avatarImageReference;
-        this.publicationsCount = publicationsCount;
-        this.subscribersCount = subscribersCount;
+        this.publications = publications;
+        this.subscribers = subscribers;
     }
 
     public long getId() {
@@ -67,11 +67,23 @@ public class ShortDetailedUser implements Serializable {
         return avatarImageReference;
     }
 
-    public long getPublicationsCount() {
-        return publicationsCount;
+    public long getPublications() {
+        return publications;
     }
 
-    public long getSubscribersCount() {
-        return subscribersCount;
+    public long getSubscribers() {
+        return subscribers;
+    }
+
+    @Override
+    public String toString() {
+        return "ShortDetailedUser{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", userInfo='" + userInfo + '\'' +
+                ", avatarImageReference='" + avatarImageReference + '\'' +
+                ", publications=" + publications +
+                ", subscribers=" + subscribers +
+                '}';
     }
 }

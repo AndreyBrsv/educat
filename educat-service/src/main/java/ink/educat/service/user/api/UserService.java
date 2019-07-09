@@ -15,7 +15,7 @@ public interface UserService {
      * @return - пользователя, соответствующего данному email,
      * или null, если пользователь не найден 
      */
-    @Nullable
+    @NonNull
     User getUserByEmail(@NonNull String email);
 
     /**

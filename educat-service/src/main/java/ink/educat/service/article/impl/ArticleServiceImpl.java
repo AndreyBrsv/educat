@@ -63,12 +63,7 @@ public class ArticleServiceImpl implements ArticleService {
      * {@inheritDoc}
      */
     @Override
-    public List<ShortDetailedArticle> findShortDetailedArticlesBookmarkedByUser(@NonNull final User user) {
-        //noinspection ConstantConditions
-        Preconditions.checkArgument(
-                user != null,
-                "User can't be null!"
-        );
-        return articleDao.findShortDetailedArticlesBookmarkedByUser(user.getId());
+    public List<ShortDetailedArticle> findShortDetailedArticlesBookmarkedByUser(final long userId) {
+        return articleDao.findShortDetailedArticlesBookmarkedByUser(userId);
     }
 }

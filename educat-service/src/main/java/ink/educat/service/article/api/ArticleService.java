@@ -69,12 +69,12 @@ public interface ArticleService {
      * закладки пользователем user. Метод возвращает краткую информацию об этих
      * статьях, без содержимого.
      *
-     * @param user - пользователь, для которого осуществляется поиск добавленных
-     *             в закладки статей
+     * @param userId - уникальный идентификатор пользователя, для которого осуществляется
+     *               поиск добавленных в закладки статей
      * @return - список статей, добавленных в закладки
      *
      * @see ShortDetailedArticle
      *
      */
-    List<ShortDetailedArticle> findShortDetailedArticlesBookmarkedByUser(User user);
+    List<ShortDetailedArticle> findShortDetailedArticlesBookmarkedByUser(long userId);
 }

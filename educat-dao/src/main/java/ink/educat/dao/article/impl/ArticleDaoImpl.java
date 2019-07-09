@@ -17,7 +17,13 @@ import java.util.List;
 @Repository
 public class ArticleDaoImpl implements ArticleDao {
 
+    // Поля для @Autowired, не забывать добавлять в конструктор
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    public ArticleDaoImpl(final NamedParameterJdbcTemplate namedParameterJdbcTemplate){
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
     /**
      * Мапперы из БД в Java
@@ -44,10 +50,6 @@ public class ArticleDaoImpl implements ArticleDao {
      * Мапперы из Java в БД
      */
 
-    @Autowired
-    public ArticleDaoImpl(final NamedParameterJdbcTemplate namedParameterJdbcTemplate){
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
 
     @Override
     public Article findById(long id) {
@@ -144,6 +146,9 @@ public class ArticleDaoImpl implements ArticleDao {
 
     /**
      * {@inheritDoc}
+     *
+     * @discussion Не бросаем никаких исключений, так как список закладок пользователя
+     * может быть пустым и это не ошибка и не исключительная ситуация
      */
     @Override
     public List<ShortDetailedArticle> findShortDetailedArticlesBookmarkedByUser(final long userId) {
