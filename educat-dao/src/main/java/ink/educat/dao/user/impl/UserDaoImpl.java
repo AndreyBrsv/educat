@@ -119,6 +119,14 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * {@inheritDoc}
+     *
+     * @discussion Как известно хорошей практикой с точки зрения производительности
+     * является написание запросов без всяких SELECT DISTINCT-ов и LEFT/RIGHT JOIN-ов,
+     * а на чистом SELECT и JOIN. Здесь LEFT JOIN стоят сознательно, так как главная
+     * задача выбрать пользователя и всю краткую по нему из соответствующих
+     * таблиц. Если информации нет, да и "Бог" с ней. В случае использования просто JOIN
+     * можем потерять пользователя у которого нет доп. информации, но сам пользователь
+     * содержится в EC_USERS.
      */
     @NonNull
     public ShortDetailedUser getShortDetailedUserById(final long id) {

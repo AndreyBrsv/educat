@@ -2,6 +2,7 @@ package ink.educat.service.user.impl;
 
 import com.google.common.base.Preconditions;
 import ink.educat.core.api.DeleteStrategy;
+import ink.educat.dao.user.api.Entities.ShortDetailedUser;
 import ink.educat.dao.user.api.Entities.User;
 import ink.educat.dao.user.api.Entities.UserStatus;
 import ink.educat.dao.user.api.UserDao;
@@ -23,7 +24,6 @@ import java.util.regex.Pattern;
 @Service
 public class UserServiceImpl implements UserService {
 
-    //TODO: забить сюда регулярное выражение для валидации адреса электронной почты
     private static final String EMAIL_TEMPLATE = "*";
 
     private final UserDao userDao;
@@ -53,6 +53,15 @@ public class UserServiceImpl implements UserService {
                 "Invalid email address format!"
         );
         return userDao.getUserByEmail(email);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @NonNull
+    @Override
+    public ShortDetailedUser getShortDetailedUserById(final long userId) {
+        return userDao.getShortDetailedUserById(userId);
     }
 
     /**

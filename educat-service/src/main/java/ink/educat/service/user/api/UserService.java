@@ -19,15 +19,6 @@ public interface UserService {
     User getUserByEmail(@NonNull String email) throws IllegalArgumentException;
 
     /**
-     * Метод, позволяющий удалить пользователя;
-     *
-     * @param user           - пользователь
-     * @param deleteStrategy - стратегия удаления
-     * @see DeleteStrategy
-     */
-    void deleteWithStrategy(@NonNull User user, @NonNull DeleteStrategy deleteStrategy);
-
-    /**
      * Метод, позволяющий получить "укороченную" версию пользователя. Подходит, например,
      * когда один пользователь заходит на профиль другого, чтобы подписаться.
      *
@@ -35,5 +26,14 @@ public interface UserService {
      * @return - информацию о пользователе
      * @see ShortDetailedUser
      */
-    ShortDetailedUser getShortDetailedUserInformation(long userId);
+    ShortDetailedUser getShortDetailedUserById(long userId);
+
+    /**
+     * Метод, позволяющий удалить пользователя;
+     *
+     * @param user           - пользователь
+     * @param deleteStrategy - стратегия удаления
+     * @see DeleteStrategy
+     */
+    void deleteWithStrategy(@NonNull User user, @NonNull DeleteStrategy deleteStrategy);
 }

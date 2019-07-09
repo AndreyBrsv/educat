@@ -55,6 +55,14 @@ public class ArticleServiceImpl implements ArticleService {
      * {@inheritDoc}
      */
     @Override
+    public List<ShortDetailedArticle> getInterestingArticleForUser(User user) {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<ShortDetailedArticle> findShortDetailedArticlesBookmarkedByUser(@NonNull final User user) {
         //noinspection ConstantConditions
         Preconditions.checkArgument(
