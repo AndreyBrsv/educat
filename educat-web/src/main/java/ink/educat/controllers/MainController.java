@@ -21,7 +21,7 @@ public class MainController {
     @RequestMapping(value="/", method=RequestMethod.GET)
     @ResponseBody
     public String addUser() {
-        userService.getUserByEmail("lllll");
+        //userService.getUserByEmail("lllll");
         return "{\"Если вы это видете, значит Educat работает \":1}";
     }
 

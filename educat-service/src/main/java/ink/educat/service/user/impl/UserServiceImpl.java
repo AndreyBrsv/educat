@@ -24,10 +24,10 @@ import java.util.regex.Pattern;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final String EMAIL_TEMPLATE = "*";
+    private static final String EMAIL_TEMPLATE = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$";
 
     private final UserDao userDao;
-    private final Pattern emailPattern = Pattern.compile(EMAIL_TEMPLATE);
+    private final Pattern emailPattern = Pattern.compile(EMAIL_TEMPLATE, Pattern.CASE_INSENSITIVE);
 
     @Autowired
     public UserServiceImpl(final UserDao userDao) {
