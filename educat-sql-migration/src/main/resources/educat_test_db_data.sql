@@ -1,14 +1,24 @@
 -- Данные для тестовой базы данных
 
+--Секреты авторизации с различных серверов аутентификации (так как в будещем подразумевается
+-- возможность мнгновенной регистрации через Google и VK). Секреты авторизации знают только
+-- двое: 1) Сервер, который произвел логин пользователя и сгенерировал секрет;
+-- 2) Сервер авотризации, который использует этот секрет при разборе токена, который клиент
+-- каждый раз кидает.
+INSERT INTO EC_SECURITIES (SECURITY_NAME, SECURITY_VALUE, DESCRIPTION)
+VALUES ('EDUCAT_JWT_SECRET','Here_should_be_secret_jwt_key', 'Секрет авторизации Educat'),
+       ('GOOGLE_JWT_SECRET','Here_should_be_secret_jwt_key', 'Секрет авторизации Google'),
+       ('VK_JWT_SECRET','Here_should_be_secret_jwt_key', 'Секрет авторизации VK');
+
 -- *ПОЛЬЗОВАТЕЛИ*
 -- Роли
-INSERT INTO ec_user_roles (user_role_id, role_name, role_description) VALUES
-(1, 'ADMIN', 'administration of educat'),
-(2, 'MODERATOR', 'moderation of educat'),
-(3, 'COMPANY', 'front compnay of educat'),
-(4, 'TUTOR', 'tutors of educat'),
-(5, 'USER', 'educator'),
-(6, 'TESTER','some role for tests');
+INSERT INTO ec_user_roles (user_role_id, role_name, role_description)
+VALUES (1, 'ADMIN', 'administration of educat'),
+       (2, 'MODERATOR', 'moderation of educat'),
+       (3, 'COMPANY', 'front compnay of educat'),
+       (4, 'TUTOR', 'tutors of educat'),
+       (5, 'USER', 'educator'),
+       (6, 'TESTER', 'some role for tests');
 
 -- Пользователи
 INSERT INTO ec_users (user_role_id, email, password, first_name, second_name, status) VALUES

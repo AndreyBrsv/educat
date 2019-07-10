@@ -19,6 +19,7 @@
         <module>educat-dao</module>
         <module>educat-service</module>
         <module>educat-web</module>
+        <module>educat-security</module>
     </modules>
 
     <dependencies>
