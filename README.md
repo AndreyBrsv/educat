@@ -101,6 +101,55 @@ CREATE SEQUENCE SEQ_EC_USERS
 ;
 ```
 
+Перейдем к триггерам. Триггеры - это такие блоки кода в БД, которые срабатывают при выполнении каких-нибудь действий с базой.
+Самые часто используемые триггеры - это триггеры, срабатывающие до вставки строк(и) в таблицу (BEFORE INSERT OR UPDATE TRIGGER), и, срабатывающие после вставки в таблицу (AFTER INSERT OR UPDADTE TRIGGER).
+
+Рассмотрим пример. Допустим, мы реализуем возможность организации подписок пользователей друг на друга. Мы создаем следующую таблицу:
+
+```sql
+CREATE TABLE EC_USER_TO_USER_SUBSCRIPTIONS
+(
+    SUBSCRIBE_USER_ID  INTEGER NOT NULL,
+    SUBSCRIBED_USER_ID INTEGER NOT NULL,
+    PRIMARY KEY (SUBSCRIBE_USER_ID, SUBSCRIBED_USER_ID)
+);
+```
+, где SUBSCRIBE_USER_ID - пользователь, на которого была осуществлена подписка, SUBSCRIBED_USER_ID - пользователь, который подписался. 
+
+В данном случае может возникнуть ситуация, когда пользователь подписан сам на себя. Нужно эту ситуацию исключить. Это можно сделать при помощи триггера, который будет проверять данные записи перед вставкой в таблицу.
+
+Правила именования триггеров такие: TRG_Название_таблицы_Название_действия и постфикс _BI/AI (в зависимости от того, когда происходит действие триггера Before Insert или After Insert).
+
+Для начала напишем процедуру проверки полей, не акцентируем на синтаксисе внимание, так как основная тема именоване триггера:
+
+```sql
+CREATE FUNCTION CHECK_SUBSCRIBERS_ID() RETURNS TRIGGER AS
+$EC_TRG_ADD_NEW_SUBSCRIBER_BI$
+BEGIN
+    IF NEW.SUBSCRIBE_USER_ID = NEW.SUBSCRIBED_USER_ID THEN
+        RAISE EXCEPTION $$SUBSCRIBE_USER_ID and SUBSCRIBED_USER_ID can't be equal$$;
+    END IF;
+    RETURN NEW;
+END;
+$EC_TRG_ADD_NEW_SUBSCRIBER_BI$ LANGUAGE plpgsql;
+```
+
+и сам триггер:
+
+```sql
+CREATE TRIGGER TRG_EC_USER_TO_USER_SUBSCRIPTIONS_CHECK_USER_IDS_BI
+    BEFORE INSERT OR UPDATE
+    ON EC_USER_TO_USER_SUBSCRIPTIONS
+    FOR EACH ROW
+EXECUTE PROCEDURE CHECK_SUBSCRIBERS_ID();
+```
+таким образом из названия видно: 
+1) это триггер(по префиксу); 
+2) название таблицы, к которой он привязан;
+3) действие, которое он выполняет;
+3) момент выполнения действия;
+
+
 **Индексы**
 
 - Для создания уникального индекса нужно использовавть префикс UI_ (сокр. unique index): UI_НазваниеТаблицы_Колонка1_Колонка2_... 
