@@ -16,10 +16,11 @@
 
     <modules>
         <module>educat-sql-migration</module>
-        <module>educat-dao</module>
-        <module>educat-service</module>
         <module>educat-web</module>
         <module>educat-security</module>
+        <module>educat-article</module>
+        <module>educat-user</module>
+        <module>educat-core</module>
     </modules>
 
     <dependencies>
