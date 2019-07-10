@@ -22,5 +22,4 @@ target/
 *.log
 
 # Frontend
-educat-mvc/educat-mvc-web/frontend/node_modules
-educat-mvc/educat-mvc-web/frontend/dist
+educat-web/src/main/webapp/WEB-INF/views/*
