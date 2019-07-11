@@ -87,7 +87,7 @@ public class UserDaoImpl implements UserDao {
      * {@inheritDoc}
      */
     @NonNull
-    public User getUserByEmail(@NonNull final String email) {
+    public User findUserByEmail(@NonNull final String email) {
         //noinspection ConstantConditions
         Preconditions.checkArgument(
                 email != null && !email.isEmpty(),

@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @NonNull
-    public User getUserByEmail(@NonNull String email) {
+    public User findUserByEmail(@NonNull String email) {
         //noinspection ConstantConditions
         Preconditions.checkArgument(
                 email != null && !email.isEmpty(),
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
                 matcher.find(),
                 "Invalid email address format!"
         );
-        return userDao.getUserByEmail(email);
+        return userDao.findUserByEmail(email);
     }
 
     /**

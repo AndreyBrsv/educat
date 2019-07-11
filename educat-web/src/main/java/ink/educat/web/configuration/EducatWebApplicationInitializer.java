@@ -23,20 +23,16 @@ public class EducatWebApplicationInitializer implements WebApplicationInitialize
     public void onStartup(@NonNull ServletContext servletContext) throws ServletException {
 
         // Создание корневого контейнера
-        System.out.println("Поднятие контекста");
         AnnotationConfigWebApplicationContext applicationContext =
                 new AnnotationConfigWebApplicationContext();
         applicationContext.register(EducatApplicationConfiguration.class);
-//        applicationContext.refresh();
-//
-        System.out.println("Добавляем слушатель");
+
         servletContext.addListener(new ContextLoaderListener(applicationContext));
 
         // Создание диспечер контекста
         AnnotationConfigWebApplicationContext dispatcherContext =
                 new AnnotationConfigWebApplicationContext();
         dispatcherContext.register(DispatcherConfiguration.class);
-        //dispatcherContext.refresh();
 
         // Создание диспетчер сервлета
         DispatcherServlet dispatcherServlet = new DispatcherServlet(dispatcherContext);

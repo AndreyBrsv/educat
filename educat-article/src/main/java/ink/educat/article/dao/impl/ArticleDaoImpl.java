@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 @Repository
@@ -82,16 +83,26 @@ public class ArticleDaoImpl implements ArticleDao {
         return articles.iterator().next();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<Article> findByIDs(Iterable<Long> ids) {
+        final Iterator iterator = ids.iterator();
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(Iterable<Article> articles) {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void saveOrUpdate(Article article) {
 
@@ -148,7 +159,7 @@ public class ArticleDaoImpl implements ArticleDao {
      * {@inheritDoc}
      *
      * @discussion Не бросаем никаких исключений, так как список закладок пользователя
-     * может быть пустым и это не ошибка и не исключительная ситуация
+     * может быть пустым и это не ошибка и не исключительная ситуация.
      */
     @Override
     public List<ShortDetailedArticle> findShortDetailedArticlesBookmarkedByUser(final long userId) {

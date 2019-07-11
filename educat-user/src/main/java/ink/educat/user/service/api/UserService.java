@@ -15,7 +15,7 @@ public interface UserService {
      * или null, если пользователь не найден 
      */
     @NonNull
-    User getUserByEmail(@NonNull String email);
+    User findUserByEmail(@NonNull String email);
 
     /**
      * Метод, позволяющий получить "укороченную" версию пользователя. Подходит, например,

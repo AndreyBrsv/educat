@@ -6,7 +6,7 @@ import ink.educat.user.dao.api.entities.User;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
- * Интерфейс доступа к данным пользователей
+ * Интерфейс доступа к данным пользователей.
  */
 public interface UserDao extends AbstractDao<User> {
 
@@ -18,7 +18,7 @@ public interface UserDao extends AbstractDao<User> {
      * экземпляр класса {@link User} если найден.
      */
     @NonNull
-    User getUserByEmail(@NonNull String email);
+    User findUserByEmail(@NonNull String email);
 
 
     /**
