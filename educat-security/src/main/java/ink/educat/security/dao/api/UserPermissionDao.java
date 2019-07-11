@@ -1,6 +1,6 @@
 package ink.educat.security.dao.api;
 
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Объект доступа к данным для работы с правами пользователей.
@@ -14,6 +14,6 @@ public interface UserPermissionDao {
      * @return Возвращает Map<String, String>, где ключ это название пермишена,
      * а значение - список ролей, для которых этот пермишен доступен.
      */
-    Map<String,String> loadRolesAndPermissions();
+    ConcurrentHashMap<String,String> loadRolesAndPermissions();
 
 }

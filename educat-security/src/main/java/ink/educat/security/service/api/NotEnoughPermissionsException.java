@@ -20,7 +20,10 @@ public class NotEnoughPermissionsException extends RuntimeException {
         super(cause);
     }
 
-    public NotEnoughPermissionsException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public NotEnoughPermissionsException(String message,
+                                         Throwable cause,
+                                         boolean enableSuppression,
+                                         boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 

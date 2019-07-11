@@ -21,18 +21,21 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class UserPermissionServiceImpl implements UserPermissionService {
 
-    private final ConcurrentHashMap<String, String> userPermissionsMap;
-    private UserPermissionDao userPermissionDao;
+    /**
+     * Читай discussion в {@link SecurityServiceImpl}
+     */
+    private ConcurrentHashMap<String, String> userPermissionsMap;
+    private final UserPermissionDao userPermissionDao;
 
     @Autowired
     public UserPermissionServiceImpl(final UserPermissionDao userPermissionDao) {
-        // На всякий случай делаем @Autowired целого dao, чтобы при изменениях
-        // в БД не пришлось перезапускать сервер, а сделать refresh() пермишенов.
+        userPermissionsMap = userPermissionDao.loadRolesAndPermissions();
         this.userPermissionDao = userPermissionDao;
-        // микрохак из семантики final полей :)
-        userPermissionsMap = new ConcurrentHashMap<>(userPermissionDao.loadRolesAndPermissions());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void guard(@NonNull final User user, @NonNull final String permission) {
         //noinspection ConstantConditions
@@ -56,5 +59,13 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         if (!availableRoleList.contains(user.getUserRole().name())) {
             throw new NotEnoughPermissionsException("Not enough access permissions!");
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void refresh() {
+        userPermissionsMap = userPermissionDao.loadRolesAndPermissions();
     }
 }

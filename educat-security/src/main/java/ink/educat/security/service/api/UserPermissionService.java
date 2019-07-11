@@ -1,5 +1,6 @@
 package ink.educat.security.service.api;
 
+import ink.educat.core.service.api.Refreshable;
 import ink.educat.user.dao.api.entities.User;
 
 /**
@@ -33,7 +34,7 @@ import ink.educat.user.dao.api.entities.User;
  *   // обернем его и вернем пользователю, мол у него недостаточно прав
  * }
  */
-public interface UserPermissionService {
+public interface UserPermissionService extends Refreshable {
 
     /**
      * Метод, определяющий разрешен ли доступ к данному пермишену

@@ -5,8 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Объект доступа к данным для работы с правами пользователей.
@@ -24,8 +23,8 @@ public class UserPermissionDaoImpl implements UserPermissionDao {
     }
 
     @Override
-    public Map<String, String> loadRolesAndPermissions() {
+    public ConcurrentHashMap<String, String> loadRolesAndPermissions() {
         // Написать имплементацию метода
-        return new HashMap<>();
+        return new ConcurrentHashMap<>();
     }
 }
