@@ -3,7 +3,6 @@ package ink.educat.web.configuration;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -15,9 +14,9 @@ import javax.servlet.ServletRegistration;
 /**
  * Основной конфигурационныый класс веб приложения
  */
-public class EducatWebApplicationInitializer implements WebApplicationInitializer {
+public class WebApplicationInitializer implements org.springframework.web.WebApplicationInitializer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EducatWebApplicationInitializer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebApplicationInitializer.class);
 
     @Override
     public void onStartup(@NonNull ServletContext servletContext) throws ServletException {
@@ -25,7 +24,7 @@ public class EducatWebApplicationInitializer implements WebApplicationInitialize
         // Создание корневого контейнера
         AnnotationConfigWebApplicationContext applicationContext =
                 new AnnotationConfigWebApplicationContext();
-        applicationContext.register(EducatApplicationConfiguration.class);
+        applicationContext.register(ApplicationConfiguration.class);
 
         servletContext.addListener(new ContextLoaderListener(applicationContext));
 

@@ -1,7 +1,5 @@
 package ink.educat.core.service.api;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * Служебный интефейс для обновления(перезагрузки). Например
  * может использоваться для обновления кэшей или перезагрузки

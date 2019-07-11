@@ -14,7 +14,7 @@ import javax.sql.DataSource;
         "ink.educat.article",
         "ink.educat.security",
 })
-public class EducatApplicationConfiguration {
+public class ApplicationConfiguration {
     // Пока это несколько примитивный подход, он нужен для тестов
     @Bean
     public DataSource dataSource() {
