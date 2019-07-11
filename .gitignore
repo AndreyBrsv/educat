@@ -22,4 +22,4 @@ target/
 *.log
 
 # Frontend
-educat-web/src/main/webapp/WEB-INF/views/*
+educat-web/src/main/webapp/WEB-INF/**

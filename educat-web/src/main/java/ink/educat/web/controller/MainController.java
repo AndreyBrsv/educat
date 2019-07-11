@@ -20,15 +20,17 @@ public class MainController {
     @RequestMapping(value="/", method=RequestMethod.GET)
     //@ResponseBody
     public String addUser() {
-//        try {
-//            User user = userService.getUserByEmail("andreybrsv@yandex.ru");
-//            return user.toString();
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            return ex.getMessage();
-//        }
-        //return "{\"Если вы это видете, значит Educat работает \":1}";
-        return "index";
+        return "index.jsp";
+    }
+
+    @RequestMapping(value="/sign-in", method=RequestMethod.GET)
+    public String signIn() {
+        return "sign-in.jsp";
+    }
+
+    @RequestMapping(value="/sign-up", method=RequestMethod.GET)
+    public String signUp() {
+        return "sign-up.jsp";
     }
 
 
