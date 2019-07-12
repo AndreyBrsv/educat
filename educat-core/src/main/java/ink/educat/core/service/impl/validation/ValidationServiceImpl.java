@@ -1,10 +1,11 @@
-package ink.educat.core.service.impl;
+package ink.educat.core.service.impl.validation;
 
-import ink.educat.core.service.api.Validate;
-import ink.educat.core.service.api.ValidationService;
+import ink.educat.core.service.api.validation.Validate;
+import ink.educat.core.service.api.validation.ValidationService;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
+import java.util.regex.Pattern;
 
 /**
  * Сервис для валидации полей. В перспективе в дальнейшем может
@@ -28,6 +29,7 @@ public class ValidationServiceImpl implements ValidationService {
         for (final Field field : fields) {
             if (field.isAnnotationPresent(Validate.class)) {
                 final Validate validate = field.getAnnotation(Validate.class);
+                final Pattern pattern = Pattern.compile(validate.pattern());
                 field.setAccessible(true);
                 final Class fieldType = field.getType();
                 //Имлементировать алгоритм валидации для различных типов

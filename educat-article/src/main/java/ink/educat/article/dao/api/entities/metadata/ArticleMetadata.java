@@ -1,10 +1,14 @@
 package ink.educat.article.dao.api.entities.metadata;
 
+import ink.educat.core.service.api.validation.Validate;
+
 import java.io.Serializable;
 
 public class ArticleMetadata implements Serializable {
 
+    @Validate(maxLength = 300)
     private String excerpt;
+
     private String thumbnailUrl;
 
     public ArticleMetadata() {

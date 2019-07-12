@@ -1,4 +1,4 @@
-package ink.educat.core.service.api;
+package ink.educat.core.service.api.validation;
 
 public class ValidationException extends RuntimeException {
 

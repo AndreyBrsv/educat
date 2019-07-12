@@ -1,5 +1,7 @@
 package ink.educat.article.dao.api.entities.component;
 
+import ink.educat.core.service.api.validation.Validate;
+
 import java.io.Serializable;
 
 /**
@@ -16,13 +18,22 @@ import java.io.Serializable;
 public class ArticleComponent implements Serializable {
 
     private ArticleComponentRole role;
+
     private String language;
+
+    @Validate(maxLength = 100)
     private String title;
+
     private String text;
+
     private String subtext;
+
     private String colorSchema;
+
     private ArticleComponent[] images;
+
     private String url;
+
     private String imageSubtitle;
 
     public ArticleComponent() {

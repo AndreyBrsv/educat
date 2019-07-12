@@ -2,10 +2,12 @@ package ink.educat.article.dao.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import ink.educat.core.dao.entities.Jsonable;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.io.Serializable;
 
-public enum ArticleStatus implements Serializable {
+public enum ArticleStatus implements Serializable, Jsonable<ArticleStatus> {
 
     AVAILABLE("available", "Доступна"),
     MODERATION("moderation", "На модерации"),
@@ -20,16 +22,12 @@ public enum ArticleStatus implements Serializable {
     }
 
     @JsonCreator
-    static ArticleStatus parseByJsonValue(final String jsonValue) {
-        for (final ArticleStatus status : ArticleStatus.values()) {
-            if (status.getJsonValue().equals(jsonValue)) {
-                return status;
-            }
-        }
-        throw new IllegalArgumentException("Illegal argument " + jsonValue);
+    public static ArticleStatus parseByJsonValue(@NonNull final String jsonValue) {
+        return Jsonable.parseByJsonValue(jsonValue, ArticleStatus.class);
     }
 
     @JsonValue
+    @Override
     public String getJsonValue() {
         return jsonValue;
     }

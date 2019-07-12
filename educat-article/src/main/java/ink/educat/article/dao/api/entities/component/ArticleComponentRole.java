@@ -2,10 +2,12 @@ package ink.educat.article.dao.api.entities.component;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import ink.educat.core.dao.entities.Jsonable;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.io.Serializable;
 
-public enum ArticleComponentRole implements Serializable {
+public enum ArticleComponentRole implements Serializable, Jsonable<ArticleComponentRole> {
 
     PLAIN_TEXT("plainText", "Обычный текст"),
     IMAGE("image", "Изображение"),
@@ -23,16 +25,12 @@ public enum ArticleComponentRole implements Serializable {
     }
 
     @JsonCreator
-    public static ArticleComponentRole parseByJsonValue(final String jsonValue) {
-        for (final ArticleComponentRole role : ArticleComponentRole.values()) {
-            if (role.getJsonValue().equals(jsonValue)) {
-                return role;
-            }
-        }
-        throw new IllegalArgumentException("Illegal argument " + jsonValue);
+    public static ArticleComponentRole parseByJsonValue(@NonNull final String jsonValue) {
+        return Jsonable.parseByJsonValue(jsonValue, ArticleComponentRole.class);
     }
 
     @JsonValue
+    @Override
     public String getJsonValue() {
         return jsonValue;
     }

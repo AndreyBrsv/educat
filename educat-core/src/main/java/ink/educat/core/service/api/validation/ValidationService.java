@@ -1,4 +1,4 @@
-package ink.educat.core.service.api;
+package ink.educat.core.service.api.validation;
 
 /**
  * Сервис для валидации полей. Достаточно подгрузить его в нужный пакет

@@ -3,6 +3,7 @@ package ink.educat.article.dao.api.entities;
 import ink.educat.article.dao.api.entities.component.ArticleComponent;
 import ink.educat.article.dao.api.entities.metadata.ArticleMetadata;
 import ink.educat.article.dao.api.entities.style.ArticleStyle;
+import ink.educat.core.service.api.validation.Validate;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,11 +18,13 @@ public class Article implements Serializable {
 
     private long identifier;
     private long authorIdentifier;
+    @Validate(maxLength = 120, nullable = false)
     private String title;
     private String subtitle;
     private boolean isBookmarked;
     private boolean isLiked;
     private long likes;
+    @Validate(nullable = false)
     private LocalDateTime creationDate;
     private String[] tags;
     private ArticleStyle articleStyle;
