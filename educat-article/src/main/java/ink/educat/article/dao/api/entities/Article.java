@@ -1,7 +1,8 @@
 package ink.educat.article.dao.api.entities;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import ink.educat.article.dao.api.entities.component.ArticleComponent;
+import ink.educat.article.dao.api.entities.metadata.ArticleMetadata;
+import ink.educat.article.dao.api.entities.style.ArticleStyle;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -14,87 +15,124 @@ import java.time.LocalDateTime;
  */
 public class Article implements Serializable {
 
-    /** Уникальной идентификатор статьи */
-    private long id;
-
-    /** Ссылка на главное изображение **/
-    @Nullable
-    private String mainImageReference;
-
-    /** Уникальный идентификатор пользователя, создавшего статью */
-    private long userId;
-
-    /** Заголовок статьи*/
-    @NonNull
-    private String header;
-
-    /** Содержимое статьи. Представляет из себя JSON строку */
-    @NonNull
-    private String content;
-
-    /** Тэги к статье. Может использоваться для быстрого поиска */
-    @Nullable
-    private String tags;
-
-    @NonNull
+    private long identifier;
+    private long authorIdentifier;
+    private String title;
+    private String subtitle;
+    private boolean isBookmarked;
+    private boolean isLiked;
+    private long likes;
+    private LocalDateTime creationDate;
+    private String[] tags;
+    private ArticleStyle articleStyle;
+    private ArticleMetadata metadata;
     private ArticleStatus status;
 
-    /** Дата создания статьи */
-    @NonNull
-    private LocalDateTime creationDate;
+    private ArticleComponent[] components;
 
-    public Article() {};
+    public Article() {}
 
-    public Article(final long id,
-                   final long userId,
-                   @NonNull final String header,
-                   @NonNull final String content,
-                   @Nullable final String tags,
-                   @NonNull final ArticleStatus status,
-                   @NonNull final LocalDateTime creationDate) {
-        super();
-        this.id = id;
-        this.userId = userId;
-        this.header = header;
-        this.content = content;
-        this.tags = tags;
-        this.status = status;
+    public long getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(long identifier) {
+        this.identifier = identifier;
+    }
+
+    public long getAuthorIdentifier() {
+        return authorIdentifier;
+    }
+
+    public void setAuthorIdentifier(long authorIdentifier) {
+        this.authorIdentifier = authorIdentifier;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    public boolean isBookmarked() {
+        return isBookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        isBookmarked = bookmarked;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
+
+    public long getLikes() {
+        return likes;
+    }
+
+    public void setLikes(long likes) {
+        this.likes = likes;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getMainImageReference() {
-        return mainImageReference;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    @NonNull
-    public String getHeader() {
-        return header;
-    }
-
-    @NonNull
-    public String getContent() {
-        return content;
-    }
-
-    public String getTags() {
+    public String[] getTags() {
         return tags;
     }
 
-    @NonNull
+    public void setTags(String[] tags) {
+        this.tags = tags;
+    }
+
+    public ArticleStyle getArticleStyle() {
+        return articleStyle;
+    }
+
+    public void setAriticleStyle(ArticleStyle articleStyle) {
+        this.articleStyle = articleStyle;
+    }
+
+    public ArticleMetadata getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(ArticleMetadata metadata) {
+        this.metadata = metadata;
+    }
+
     public ArticleStatus getStatus() {
         return status;
     }
 
-    @NonNull
-    public LocalDateTime getCreationDate() {
-        return creationDate;
+    public void setStatus(ArticleStatus status) {
+        this.status = status;
+    }
+
+    public ArticleComponent[] getComponents() {
+        return components;
+    }
+
+    public void setComponents(ArticleComponent[] components) {
+        this.components = components;
     }
 }

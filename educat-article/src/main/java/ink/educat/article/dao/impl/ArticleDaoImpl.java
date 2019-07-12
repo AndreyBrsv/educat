@@ -31,15 +31,7 @@ public class ArticleDaoImpl implements ArticleDao {
      */
     private final RowMapper<ShortDetailedArticle> shortDetailedArticleRowMapper =
             ((resultSet, i) -> new ShortDetailedArticle(
-                    resultSet.getLong("article_id"),
-                    resultSet.getString("user_name"),
-                    resultSet.getString("picture_reference"),
-                    resultSet.getString("header"),
-                    resultSet.getString("reading_time"),
-                    resultSet.getString("main_tag"),
-                    resultSet.getTimestamp("publication_date")
-                            .toLocalDateTime()
-                            .toLocalDate()
+
             ));
 
     private final RowMapper<Article> articleRowMapper =
@@ -104,8 +96,8 @@ public class ArticleDaoImpl implements ArticleDao {
      * {@inheritDoc}
      */
     @Override
-    public void saveOrUpdate(Article article) {
-
+    public Article saveOrUpdate(Article article) {
+        return null;
     }
 
     /**
@@ -119,11 +111,19 @@ public class ArticleDaoImpl implements ArticleDao {
                 "Article can't be null!");
 
         final MapSqlParameterSource mapSqlParameterSource =
-                new MapSqlParameterSource().addValue("id", article.getId());
+                new MapSqlParameterSource().addValue("id", article.getIdentifier());
 
         namedParameterJdbcTemplate.queryForMap(
                 "DELETE FROM EC_ARTICLES WHERE ARTICLE_ID = :id",
                 mapSqlParameterSource);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getJsonArticleById(long id) {
+        return null;
     }
 
     /**

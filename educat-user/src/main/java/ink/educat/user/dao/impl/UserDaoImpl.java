@@ -14,6 +14,8 @@ import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.Iterator;
@@ -253,7 +255,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * {@inheritDoc}
      */
-    public void saveOrUpdate(@NonNull final User user) {
+    public User saveOrUpdate(@NonNull final User user) {
         //noinspection ConstantConditions
         Preconditions.checkArgument(
                 user != null,
@@ -262,18 +264,33 @@ public class UserDaoImpl implements UserDao {
         final MapSqlParameterSource mapSqlParameterSource =
                 new MapSqlParameterSource().addValues(userMapper(user));
 
+        final KeyHolder keyHolder = new GeneratedKeyHolder();
+
         namedParameterJdbcTemplate.update(
                 "INSERT INTO EC_USERS \n" +
                         "(USER_ROLE_ID, EMAIL, PASSWORD, FIRST_NAME, SECOND_NAME, STATUS) \n" +
-                        "VALUES " +
+                        "VALUES \n" +
                         "(:user_role_id, :email, :password, :first_name, :second_name, :user_status) \n" +
-                        "ON CONFLICT (USER_ID)" +
+                        "ON CONFLICT (USER_ID) \n" +
                         "DO UPDATE SET \n" +
                         "EMAIL = :email, \n" +
                         "FIRST_NAME = :first_name, SECOND_NAME = :second_name, \n" +
                         "STATUS = :user_status, \n" +
                         "USER_ROLE_ID = (SELECT DISTINCT USER_ROLE_ID FROM EC_USER_ROLES WHERE USER_ROLE_ID = :user_role)",
-                mapSqlParameterSource);
+                mapSqlParameterSource,
+                keyHolder,
+                new String[]{"USER_ID"}
+        );
+
+        Preconditions.checkNotNull(
+                keyHolder.getKey(),
+                "Save or update error. Returned key is null. " +
+                        "Can't extract id from keyholder!"
+        );
+
+        user.setId(keyHolder.getKey().longValue());
+
+        return user;
     }
 
     /**
