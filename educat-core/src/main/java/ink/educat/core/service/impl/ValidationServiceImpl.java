@@ -27,7 +27,11 @@ public class ValidationServiceImpl implements ValidationService {
         final Field[] fields = tClass.getDeclaredFields();
         for (final Field field : fields) {
             if (field.isAnnotationPresent(Validate.class)) {
+                final Validate validate = field.getAnnotation(Validate.class);
+                field.setAccessible(true);
+                final Class fieldType = field.getType();
                 //Имлементировать алгоритм валидации для различных типов
+                field.setAccessible(false);
             }
         }
     }
