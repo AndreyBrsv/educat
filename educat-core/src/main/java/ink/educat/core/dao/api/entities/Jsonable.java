@@ -1,8 +1,9 @@
-package ink.educat.core.dao.entities;
+package ink.educat.core.dao.api.entities;
 
 import com.google.common.base.Preconditions;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
@@ -16,7 +17,7 @@ import java.lang.reflect.Method;
  * одинаковый код в перечислениях, которые должны сериализоваться
  * в JSON, решил придумать такой микрохак.
  */
-public interface Jsonable<T extends Enum<T>> {
+public interface Jsonable<T extends Enum<T>> extends Serializable {
 
     String getJsonValue();
 

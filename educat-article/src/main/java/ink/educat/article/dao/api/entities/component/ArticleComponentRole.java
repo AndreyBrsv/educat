@@ -2,12 +2,10 @@ package ink.educat.article.dao.api.entities.component;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import ink.educat.core.dao.entities.Jsonable;
+import ink.educat.core.dao.api.entities.Jsonable;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.io.Serializable;
-
-public enum ArticleComponentRole implements Serializable, Jsonable<ArticleComponentRole> {
+public enum ArticleComponentRole implements Jsonable<ArticleComponentRole> {
 
     PLAIN_TEXT("plainText", "Обычный текст"),
     IMAGE("image", "Изображение"),
