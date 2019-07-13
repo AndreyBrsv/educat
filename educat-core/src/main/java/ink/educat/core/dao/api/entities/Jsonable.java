@@ -7,8 +7,19 @@ import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
- * Специальный интерфейс, который должны наследовать перечисления
+ * Специальный интерфейс, который должны наследовать перечисления,
  * сериализуемые в Json формат.
+ *
+ * Для того, чтобы сделать любой enum Jsonable:
+ * 1. Нужно реализовать метод getJsonValue();
+ * 2. Реализовать метод parseByJsonValue(String jsonValue) следующим образом
+ * static ТипПеречисления parseByJsonValue(String jsonValue) {
+ *     return Jsonable.parseByJsonValue(jsonValue, ТипПеречисления.class);
+ * }
+ * 3. Аннотировать getJsonValue() аннотацией @JsonValue
+ * 4. Аннотировать parseByJsonValue(String jsonValue) аннотацией @JsonCreator
+ * getJsonValue() должен возвращать поле, связанное с той или иной константой
+ * перечисления.
  *
  * @param <T> - Тип перечисления
  *
