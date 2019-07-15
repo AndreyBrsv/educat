@@ -61,13 +61,8 @@ public class UserController {
                     UserRole.USER,
                     LocalDateTime.now());
 
-            try {
-                userService.registrationUser(user);
-                return "Пользователь успешно зарегестрировался!";
-            } catch (final Exception ex2) {
-                ex2.printStackTrace();
-                return ex2.getMessage();
-            }
+            userService.registrationUser(user);
+            return "Пользователь успешно зарегестрировался!";
         }
     }
 }

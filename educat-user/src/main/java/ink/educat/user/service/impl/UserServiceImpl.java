@@ -70,6 +70,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void registrationUser(@NonNull final User user) {
+        //noinspection ConstantConditions
+        Preconditions.checkArgument(
+                user != null,
+                "User can't be null!");
         userDao.saveOrUpdate(user);
     }
 
