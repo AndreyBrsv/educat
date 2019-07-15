@@ -1,6 +1,7 @@
 package ink.educat.article.dao.api.entities.component;
 
 import ink.educat.core.service.api.validation.Validate;
+import ink.educat.core.utils.JacksonUtils;
 
 import java.io.Serializable;
 
@@ -14,6 +15,8 @@ import java.io.Serializable;
  * text = "SomeText"
  * }
  * Остальные поля будут пустыми.
+ *
+ * @see JacksonUtils#getObjectMapper()
  */
 public class ArticleComponent implements Serializable {
 

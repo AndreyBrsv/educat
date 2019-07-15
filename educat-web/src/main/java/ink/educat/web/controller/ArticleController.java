@@ -12,9 +12,10 @@ public class ArticleController {
      */
     private static final String POST_ARTICLE = "/article/post";
     private static final String EDIT_ARTICLE = "/article/edit";
-    private static final String GET_BOOKMARKED_ARTICLES = "/article/bookmarked/";
-    private static final String GET_INTERESTING_ARTICLES = "/article/interesting";
-    private static final String GET_RECENTLY_READED_ARTICLES = "/articles/recently-read";
+    private static final String GET_BOOKMARKED_ARTICLES = "/article/{user_id}/bookmarked/";
+    private static final String GET_INTERESTING_ARTICLES = "/article/{user_id}/interesting";
+    private static final String GET_RECOMMENDED_ARTICLES = "/articles/{user_id}/recommended";
+    private static final String GET_RECENTLY_READED_ARTICLES = "/articles/{user_id}/recently-read";
     private static final String GET_ARTICLES_POSTED_BY_USER = "/articles/{user-id}";
 
 

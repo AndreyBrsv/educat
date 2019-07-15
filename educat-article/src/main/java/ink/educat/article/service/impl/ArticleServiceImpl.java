@@ -37,6 +37,14 @@ public class ArticleServiceImpl implements ArticleService {
      * {@inheritDoc}
      */
     @Override
+    public String getJsonArticleById(final long id) {
+        return articleDao.getJsonArticleById(id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<ShortDetailedArticle> getArticleListByTags(String... tags) {
         return null;
     }

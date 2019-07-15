@@ -1,6 +1,7 @@
 package ink.educat.web.controller;
 
-import ink.educat.user.dao.api.entities.ShortDetailedUser;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import ink.educat.user.dao.api.entities.User;
 import ink.educat.user.dao.api.entities.UserRole;
 import ink.educat.user.dao.api.entities.UserStatus;
@@ -13,33 +14,52 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+<<<<<<< Updated upstream
 import java.time.LocalDateTime;
+=======
+import javax.servlet.http.HttpServletResponse;
+>>>>>>> Stashed changes
 
 @Controller
 public class UserController {
 
     private final UserService userService;
+    //private final TokenCreationService tokenCreationService;
 
     @Autowired
-    public UserController(final UserService userService) {
+    public UserController(
+            final UserService userService
+//            final TokenCreationService tokenCreationService
+    ) {
         this.userService = userService;
+       // this.tokenCreationService = tokenCreationService;
+    }
+    @RequestMapping(value = "/sign-in", method = RequestMethod.GET)
+    @ResponseBody
+<<<<<<< Updated upstream
+    String signInPost(final HttpServletRequest request) {
+=======
+    void get(final HttpServletRequest request, final HttpServletResponse response) {
+        singInPost(request, response);
     }
 
-    @RequestMapping(value = "/sign-in", method = RequestMethod.POST)
-    @ResponseBody
-    String signInPost(final HttpServletRequest request) {
+    void singInPost(final HttpServletRequest request, final HttpServletResponse response) {
+>>>>>>> Stashed changes
         try {
-            final User user = userService.findUserByEmail(request.getParameter("email"));
+            final String email = request.getParameter("email");
+            final User user = userService.findUserByEmail(email);
             if (user.getPassword().equals(request.getParameter("password"))) {
-                final ShortDetailedUser shortDetailedUser = userService
-                        .getShortDetailedUserById(user.getId());
-                return shortDetailedUser.toString();
-            } else {
-                return "Try again";
+                //response.addHeader("Authenticate", "Bareer " + tokenCreationService.getToken(user));
+
+                Algorithm algorithm = Algorithm.HMAC256("secret");
+                String token = JWT.create()
+                        .withClaim("email", user.getEmail())
+                        .withClaim("role", user.getUserRole().getCode())
+                        .sign(algorithm);
+                response.addHeader("Authorization", "Bearer " + token);
             }
         } catch (final Exception ex) {
             ex.printStackTrace();
-            return ex.getMessage();
         }
     }
 

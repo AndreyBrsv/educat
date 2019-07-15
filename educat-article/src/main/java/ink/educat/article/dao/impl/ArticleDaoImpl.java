@@ -123,7 +123,19 @@ public class ArticleDaoImpl implements ArticleDao {
      */
     @Override
     public String getJsonArticleById(long id) {
-        return null;
+
+        final List<String> json = namedParameterJdbcTemplate.query(
+                "SELECT CONTENT::jsonb FROM EC_ARTICLES WHERE ARTICLE_ID = :id",
+                new MapSqlParameterSource().addValue("id", id),
+                (rs, rn) -> rs.getString("CONTENT")
+        );
+
+        Preconditions.checkState(
+                json.size() == 1,
+                "Article not found!"
+        );
+
+        return json.iterator().next();
     }
 
     /**
@@ -133,7 +145,7 @@ public class ArticleDaoImpl implements ArticleDao {
     public List<ShortDetailedArticle> findShortDetailedArticlesCreatedByUser(final long userId) {
         Preconditions.checkArgument(
                 userId > 0,
-                "User id can't be less than 0!"
+                "Article id can't be less than 0!"
         );
 
         final MapSqlParameterSource mapSqlParameterSource =

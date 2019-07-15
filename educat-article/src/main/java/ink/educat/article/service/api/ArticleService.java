@@ -39,6 +39,14 @@ public interface ArticleService {
     Article getArticleById(long id);
 
     /**
+     * Позволяет получить Json представление статьи по id.
+     *
+     * @param id - уникальный иденитификатор статьи
+     * @return - json прелставление статьи
+     */
+    String getJsonArticleById(long id);
+
+    /**
      * Метод, позволяющий получить список статей по тегам.
      *
      * @param tags - теги
