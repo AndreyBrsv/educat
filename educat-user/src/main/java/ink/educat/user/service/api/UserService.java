@@ -18,6 +18,12 @@ public interface UserService {
     User findUserByEmail(@NonNull String email);
 
     /**
+     * Позволяет зарегестировать нового пользователя в системе
+     * @param user - пользователь
+     */
+    void registrationUser(@NonNull User user);
+
+    /**
      * Метод, позволяющий получить "укороченную" версию пользователя. Подходит, например,
      * когда один пользователь заходит на профиль другого, чтобы подписаться.
      *

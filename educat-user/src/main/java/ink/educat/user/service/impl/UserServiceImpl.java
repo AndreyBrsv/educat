@@ -69,6 +69,14 @@ public class UserServiceImpl implements UserService {
      * {@inheritDoc}
      */
     @Override
+    public void registrationUser(@NonNull final User user) {
+        userDao.saveOrUpdate(user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void deleteWithStrategy(@NonNull final User user, @NonNull final DeleteStrategy deleteStrategy) {
         //noinspection ConstantConditions
         Preconditions.checkArgument(
