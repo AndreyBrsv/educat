@@ -69,7 +69,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * Мапперы из Java в БД
      */
-    private Map<String, Object> userMapper(User user) {
+    private final Map<String, Object> userMapper(User user) {
 
         Map<String, Object> values = new ManagedMap<>();
         values.put("user_id", user.getId());
