@@ -1,4 +1,5 @@
 import ink.educat.user.dao.api.UserNotFoundException;
+import ink.educat.user.dao.api.entities.ShortDetailedUser;
 import ink.educat.user.dao.api.entities.User;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,7 +11,6 @@ import ink.educat.user.dao.api.UserDao;
 import ink.educat.user.dao.impl.UserDaoImpl;
 
 import java.util.ArrayList;
-
 
 public class UserDaoTest {
 
@@ -59,6 +59,28 @@ public class UserDaoTest {
 
     }
 
-   // @Test
-    //public void
+    /**
+     * В данном методе мы проверяем поиск короткой информации по id. Еще может быть такое,
+     * что id не существует.
+     */
+    @Test
+    public void getShortDetailedUserByIdTest() {
+        ArrayList<Integer> idList = new ArrayList<>();
+        ArrayList<String> expectedUserNameList = new ArrayList<>();
+        idList.add(17);
+        expectedUserNameList.add("Andrey Borisov");
+        idList.add(100);
+        expectedUserNameList.add("null");
+
+        for(int i = 0; i< idList.size(); i++) {
+            try {
+                ShortDetailedUser user = userDao.getShortDetailedUserById(idList.get(i));
+                Assert.assertEquals(expectedUserNameList.get(i), user.getUserName());
+            } catch (Exception ex) {
+                if (expectedUserNameList.get(i).equals("null")) {
+                    Assert.assertEquals(expectedUserNameList.get(i), "null");
+                }
+            }
+        }
+    }
 }
