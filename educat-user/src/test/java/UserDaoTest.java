@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ink.educat.web.configuration.ApplicationConfiguration;
 import ink.educat.user.dao.api.UserDao;
 import ink.educat.user.dao.impl.UserDaoImpl;
 
@@ -20,7 +19,7 @@ public class UserDaoTest {
     @Before
     public void UserDaoTest() {
         AnnotationConfigApplicationContext configApplicationContext =
-                new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
+                new AnnotationConfigApplicationContext(TestConfig.class);
 
         final UserDaoImpl userDaoImpl = (UserDaoImpl)configApplicationContext.getBean(UserDao.class);
 

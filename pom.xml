@@ -21,7 +21,6 @@
         <module>educat-article</module>
         <module>educat-user</module>
         <module>educat-core</module>
-        <module>educat-tests</module>
     </modules>
 
     <dependencies>
