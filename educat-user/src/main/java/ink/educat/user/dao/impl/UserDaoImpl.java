@@ -223,17 +223,13 @@ public class UserDaoImpl implements UserDao {
         Preconditions.checkState(
                 !validIds.toString().isEmpty(),
                 "No valid ids!"
-
         );
 
-        final MapSqlParameterSource mapSqlParameterSource =
-                new MapSqlParameterSource().addValue("user_ids", validIds);
-
+        //todo MapSqlParameterSources не работает, обратись - объясню почему
         final List<User> userList = namedParameterJdbcTemplate.query(
                 "SELECT * FROM EC_USERS U \n" +
                         "JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
-                        "WHERE USER_ID IN (:user_ids)",
-                mapSqlParameterSource,
+                        "WHERE USER_ID IN (" + validIds + ")",
                 userRowMapper
         );
 
