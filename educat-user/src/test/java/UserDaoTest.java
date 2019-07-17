@@ -1,6 +1,8 @@
 import ink.educat.user.dao.api.UserNotFoundException;
 import ink.educat.user.dao.api.entities.ShortDetailedUser;
 import ink.educat.user.dao.api.entities.User;
+import ink.educat.user.dao.api.entities.UserRole;
+import ink.educat.user.dao.api.entities.UserStatus;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +11,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import ink.educat.user.dao.api.UserDao;
 import ink.educat.user.dao.impl.UserDaoImpl;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -42,10 +47,12 @@ public class UserDaoTest {
 
         emailList.add("andreybrsv@yandex.ru");
         expectedFirstNameList.add("Andrey");
-        emailList.add("andreybrsv@ya.ru");
-        expectedFirstNameList.add("Andrey");
+        //emailList.add("andreybrsv@ya.ru");
+        //expectedFirstNameList.add("Andrey");
         emailList.add("noname@yandex.ru");
         expectedFirstNameList.add("null");
+        emailList.add("andreybrsv@gmail.com");
+        expectedFirstNameList.add("Andrey");
 
         for (int i = 0; i < emailList.size(); i++) {
             try {
@@ -132,5 +139,13 @@ public class UserDaoTest {
 
         List<User> userList = userDao.findByIDs(ids);
         Assert.assertEquals(goodids.size(),userList.size());
+    }
+
+    @Test
+    public void saveOrUpdateTest() {
+        User user = new User(0, "andreybrsv@gmail.com", true, "1qwerty1",
+                "Andrey", "Barbarisov", UserStatus.ACTIVE, UserRole.USER, LocalDateTime.now());
+
+        user = userDao.saveOrUpdate(user);
     }
 }
