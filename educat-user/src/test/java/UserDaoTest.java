@@ -118,12 +118,11 @@ public class UserDaoTest {
      */
     @Test
     public void findByIDsTest() {
-        HashSet<Long> ids = new HashSet<>();
+        ArrayList<Long> ids = new ArrayList<>();
         ids.add(17L);
         ids.add(18L);
         ids.add(1000L);
-        Iterator<Long> iterator = ids.iterator();
-        //User user = userDao.findByIDs();
-        }
+        Iterable<Long> iterator = ids;
+        //User user = userDao.findByIDs(ids);
     }
 }
