@@ -35,6 +35,28 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Вспомогательные методы для валидации
+     */
+
+    private boolean validateUser(@NonNull User user) {
+        //noinspection ConstantConditions
+        Preconditions.checkArgument(
+                user.getEmail() != null && user.getEmail().isEmpty(),
+                "Email can't be null or empty!"
+        );
+
+        final Matcher matcher = emailPattern.matcher(user.getEmail());
+        Preconditions.checkState(
+                matcher.find(),
+                "Invalid email address format!"
+        );
+
+        //todo дописать валидацию для всех полей
+
+        return true;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -62,6 +84,11 @@ public class UserServiceImpl implements UserService {
     @NonNull
     @Override
     public ShortDetailedUser getShortDetailedUserById(final long userId) {
+        Preconditions.checkArgument(
+                userId > 0,
+                "User id can't be 0 or lower!"
+        );
+
         return userDao.getShortDetailedUserById(userId);
     }
 
@@ -74,6 +101,12 @@ public class UserServiceImpl implements UserService {
         Preconditions.checkArgument(
                 user != null,
                 "User can't be null!");
+
+        Preconditions.checkArgument(
+                validateUser(user),
+                "User fields is bad!"
+        );
+
         userDao.saveOrUpdate(user);
     }
 
@@ -90,6 +123,10 @@ public class UserServiceImpl implements UserService {
         Preconditions.checkArgument(
                 deleteStrategy != null,
                 "Delete strategy can't be null!");
+        Preconditions.checkArgument(
+                validateUser(user),
+                "User fields is bad!"
+        );
         switch (deleteStrategy) {
             case NAIVE:
                 userDao.delete(user);
