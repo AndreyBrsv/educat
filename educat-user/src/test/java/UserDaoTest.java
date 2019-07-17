@@ -10,6 +10,8 @@ import ink.educat.user.dao.api.UserDao;
 import ink.educat.user.dao.impl.UserDaoImpl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 public class UserDaoTest {
 
@@ -21,12 +23,13 @@ public class UserDaoTest {
         AnnotationConfigApplicationContext configApplicationContext =
                 new AnnotationConfigApplicationContext(TestConfig.class);
 
-        final UserDaoImpl userDaoImpl = (UserDaoImpl)configApplicationContext.getBean(UserDao.class);
+        final UserDaoImpl userDaoImpl = (UserDaoImpl) configApplicationContext.getBean(UserDao.class);
 
         this.userDao = userDaoImpl;
     }
 
     //todo подредактировать входные данные
+
     /**
      * В данном тесте мы проверяем поиск по email'у. @ya.ru и @yandex.ru должны являться одним
      * адресом. Так же тест должен проверять, что мы ничего не нашли по email'у.
@@ -43,7 +46,7 @@ public class UserDaoTest {
         emailList.add("noname@yandex.ru");
         expectedFirstNameList.add("null");
 
-        for(int i = 0; i < emailList.size(); i++) {
+        for (int i = 0; i < emailList.size(); i++) {
             try {
                 User user = userDao.findUserByEmail(emailList.get(i));
                 Assert.assertEquals(expectedFirstNameList.get(i), user.getFirstName());
@@ -71,7 +74,7 @@ public class UserDaoTest {
         idList.add(100);
         expectedUserNameList.add("null");
 
-        for(int i = 0; i< idList.size(); i++) {
+        for (int i = 0; i < idList.size(); i++) {
             try {
                 ShortDetailedUser user = userDao.getShortDetailedUserById(idList.get(i));
                 Assert.assertEquals(expectedUserNameList.get(i), user.getUserName());
@@ -80,6 +83,47 @@ public class UserDaoTest {
                     Assert.assertEquals(expectedUserNameList.get(i), "null");
                 }
             }
+        }
+    }
+
+    /**
+     * В данном методе осуществляется проверка информации по id. id может не существовать.
+     */
+    @Test
+    public void findByIdTest() {
+        ArrayList<Integer> idList = new ArrayList<>();
+        ArrayList<String> expectedemailList = new ArrayList<>();
+        idList.add(17);
+        expectedemailList.add("andreybrsv@yandex.ru");
+        idList.add(100);
+        expectedemailList.add("null");
+        idList.add(17);
+        expectedemailList.add("andreybrsv@ya.ru");
+
+
+        for (int i = 0; i < idList.size(); i++) {
+            try {
+                User user = userDao.findById(idList.get(i));
+                Assert.assertEquals(expectedemailList.get(i), user.getEmail());
+            } catch (Exception ex) {
+                if (expectedemailList.get(i).equals("null")) {
+                    Assert.assertEquals(expectedemailList.get(i), "null");
+                }
+            }
+        }
+    }
+
+    /**
+     * В данном методе идет поиск информации по нескольким id. Какого-то может не существовать.
+     */
+    @Test
+    public void findByIDsTest() {
+        HashSet<Long> ids = new HashSet<>();
+        ids.add(17L);
+        ids.add(18L);
+        ids.add(1000L);
+        Iterator<Long> iterator = ids.iterator();
+        //User user = userDao.findByIDs();
         }
     }
 }
