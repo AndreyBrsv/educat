@@ -14,7 +14,7 @@ public enum ArticleStatus implements Jsonable<ArticleStatus> {
     private String jsonValue;
     private String description;
 
-    ArticleStatus(String jsonValue, String description) {
+    ArticleStatus(final String jsonValue, final String description) {
         this.jsonValue = jsonValue;
         this.description = description;
     }
