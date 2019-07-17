@@ -116,15 +116,21 @@ public class UserDaoTest {
 
     /**
      * В данном методе идет поиск информации по нескольким id. Какого-то может не существовать. Так что
-     * проверяем количество найденных пользователей.
+     * проверяем количество найденных пользователей. Пользователи в возвращаемом списке должны быть уникальны.
      */
     @Test
     public void findByIDsTest() {
+        ArrayList<Long> goodids = new ArrayList<>();
+            goodids.add(17L);
+            goodids.add(18L);
+        ArrayList<Long> badids = new ArrayList<>();
+            badids.add(1000L);
+            badids.add(17L); // Повторяется
         ArrayList<Long> ids = new ArrayList<>();
-        ids.add(17L);
-        ids.add(18L);
-        ids.add(1000L);
+            ids.addAll(goodids);
+            ids.addAll(badids);
+
         List<User> userList = userDao.findByIDs(ids);
-        Assert.assertEquals(ids.size()-1,userList.size());
+        Assert.assertEquals(goodids.size(),userList.size());
     }
 }
