@@ -12,6 +12,7 @@ import ink.educat.user.dao.impl.UserDaoImpl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 public class UserDaoTest {
 
@@ -114,7 +115,8 @@ public class UserDaoTest {
     }
 
     /**
-     * В данном методе идет поиск информации по нескольким id. Какого-то может не существовать.
+     * В данном методе идет поиск информации по нескольким id. Какого-то может не существовать. Так что
+     * проверяем количество найденных пользователей.
      */
     @Test
     public void findByIDsTest() {
@@ -122,7 +124,8 @@ public class UserDaoTest {
         ids.add(17L);
         ids.add(18L);
         ids.add(1000L);
-        Iterable<Long> iterator = ids;
-        //User user = userDao.findByIDs(ids);
+        List<User> userList = userDao.findByIDs(ids);
+        Assert.assertEquals(ids.size()-1,userList.size());
+        Assert.assertTrue(userList.size() == 2);
     }
 }
