@@ -47,8 +47,8 @@ public class UserDaoImpl implements UserDao {
                     resultSet.getString("password"),
                     resultSet.getString("first_name"),
                     resultSet.getString("second_name"),
-                    UserStatus.parseByName(resultSet.getString("status")),
-                    UserRole.parseByName(resultSet.getString("role_name")),
+                    UserStatus.parseByJsonValue(resultSet.getString("status")),
+                    UserRole.parseByJsonValue(resultSet.getString("role_name")),
                     resultSet.getTimestamp("registration_date").toLocalDateTime()
             ));
 
