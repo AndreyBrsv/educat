@@ -126,6 +126,5 @@ public class UserDaoTest {
         ids.add(1000L);
         List<User> userList = userDao.findByIDs(ids);
         Assert.assertEquals(ids.size()-1,userList.size());
-        Assert.assertTrue(userList.size() == 2);
     }
 }
