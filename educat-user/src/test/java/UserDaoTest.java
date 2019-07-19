@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ink.educat.user.dao.api.UserDao;
 import ink.educat.user.dao.impl.UserDaoImpl;
+import org.springframework.expression.spel.ast.Assign;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -47,23 +48,26 @@ public class UserDaoTest {
 
         emailList.add("andreybrsv@yandex.ru");
         expectedFirstNameList.add("Andrey");
-        //emailList.add("andreybrsv@ya.ru");
-        //expectedFirstNameList.add("Andrey");
+        emailList.add("andreybrsv@ya.ru");
+        expectedFirstNameList.add("Andrey");
         emailList.add("noname@yandex.ru");
         expectedFirstNameList.add("null");
-        emailList.add("andreybrsv@gmail.com");
-        expectedFirstNameList.add("Andrey");
 
         for (int i = 0; i < emailList.size(); i++) {
             try {
                 User user = userDao.findUserByEmail(emailList.get(i));
                 Assert.assertEquals(expectedFirstNameList.get(i), user.getFirstName());
-            } catch (Exception ex) {
-                if (expectedFirstNameList.get(i).equals("null")) {
-                    Assert.assertTrue(ex instanceof UserNotFoundException);
-                } else {
-                    Assert.assertEquals(expectedFirstNameList.get(i), "null");
+            } catch (UserNotFoundException ex) {
+                if(expectedFirstNameList.get(i).equals("null")) {
+                    Assert.assertTrue(true);
                 }
+                else {
+                    Assert.assertTrue(false);
+                }
+            } catch (RuntimeException ex) {
+                System.out.println("Неизвестная ошибка внутри метода!");
+                Assert.assertTrue(false);
+                ex.printStackTrace();
             }
         }
 
@@ -86,10 +90,16 @@ public class UserDaoTest {
             try {
                 ShortDetailedUser user = userDao.getShortDetailedUserById(idList.get(i));
                 Assert.assertEquals(expectedUserNameList.get(i), user.getUserName());
-            } catch (Exception ex) {
+            } catch (UserNotFoundException ex) {
                 if (expectedUserNameList.get(i).equals("null")) {
-                    Assert.assertEquals(expectedUserNameList.get(i), "null");
+                    Assert.assertTrue(true);
+                } else {
+                    Assert.assertTrue(false);
                 }
+            } catch (RuntimeException ex) {
+                System.out.println("Неизвестная ошибка внутри метода!");
+                Assert.assertTrue(false);
+                ex.printStackTrace();
             }
         }
     }
@@ -113,10 +123,16 @@ public class UserDaoTest {
             try {
                 User user = userDao.findById(idList.get(i));
                 Assert.assertEquals(expectedemailList.get(i), user.getEmail());
-            } catch (Exception ex) {
+            } catch (UserNotFoundException ex) {
                 if (expectedemailList.get(i).equals("null")) {
-                    Assert.assertEquals(expectedemailList.get(i), "null");
+                    Assert.assertTrue(true);
+                } else {
+                    Assert.assertTrue(false);
                 }
+            } catch (RuntimeException ex) {
+                System.out.println("Неизвестная ошибка внутри метода!");
+                Assert.assertTrue(false);
+                ex.printStackTrace();
             }
         }
     }
@@ -128,24 +144,49 @@ public class UserDaoTest {
     @Test
     public void findByIDsTest() {
         ArrayList<Long> goodids = new ArrayList<>();
-            goodids.add(17L);
-            goodids.add(18L);
+        goodids.add(17L);
+        goodids.add(18L);
         ArrayList<Long> badids = new ArrayList<>();
-            badids.add(1000L);
-            badids.add(17L); // Повторяется
+        badids.add(1000L);
+        badids.add(17L); // Повторяется
         ArrayList<Long> ids = new ArrayList<>();
-            ids.addAll(goodids);
-            ids.addAll(badids);
-
-        List<User> userList = userDao.findByIDs(ids);
-        Assert.assertEquals(goodids.size(),userList.size());
+        ids.addAll(goodids);
+        ids.addAll(badids);
+        try {
+            List<User> userList = userDao.findByIDs(ids);
+            Assert.assertEquals(goodids.size(), userList.size());
+        } catch (RuntimeException ex){
+            System.out.println("Неизвестная ошибка внутри метода!");
+            Assert.assertTrue(false);
+            ex.printStackTrace();
+        }
     }
 
+    //todo переделать тест с 0
     @Test
     public void saveOrUpdateTest() {
-        User user = new User(0, "andreybrsv@gmail.com", true, "1qwerty1",
-                "Andrey", "Barbarisov", UserStatus.ACTIVE, UserRole.USER, LocalDateTime.now());
+        String firstName = "Andrey";
+        String name="null";
+        String expectedfirstName = "Vladimir";
+        String emailadress = "test@test.ru";
 
-        user = userDao.saveOrUpdate(user);
+        try {
+            User user = userDao.findUserByEmail(emailadress); // Берем информацию юзера по его почте
+            name = user.getFirstName();
+        } catch(Exception ex) {
+            if (name == "null") { // Проверяем существует ли пользователь
+                User usernew = new User(1, emailadress, false, "123", firstName, "Ivanov", UserStatus.ACTIVE, UserRole.USER, LocalDateTime.now());
+                userDao.saveOrUpdate(usernew); // Создаем юзера
+                userDao.findUserByEmail(emailadress); // Берем информацию по юзеру
+                Assert.assertEquals(firstName, usernew.getFirstName()); // Проверяем, создался ли юзер
+                User userchange = new User(1, emailadress, false, "123", expectedfirstName, "Ivanov", UserStatus.ACTIVE, UserRole.USER, LocalDateTime.now());
+                userDao.saveOrUpdate(userchange); // Делаем изменение в юзере
+                userDao.findUserByEmail(emailadress); // Берем информацию по юзеру
+                Assert.assertEquals(expectedfirstName, userchange.getFirstName()); // Проверяем, произошли ли изменения
+                userDao.delete(userchange); // удаляем созданного юзера в этом методе
+             }
+        }
     }
 }
+
+
