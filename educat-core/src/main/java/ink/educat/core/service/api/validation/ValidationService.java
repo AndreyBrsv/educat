@@ -10,8 +10,8 @@ public interface ValidationService {
      * Метод валидации полей.
      *
      * @param obj - объект для валидации
-     * @throws ValidationException - если хотя бы одно из полей, аннотированное
+     * @throws ValidationException - если хотя бы одно из (пока String) полей, аннотированное
      *                             {@link Validate} не соответвует условиям внутри аннотации.
      */
-    <T> void validate(T obj) throws IllegalAccessException;
+    <T> void validate(T obj);
 }

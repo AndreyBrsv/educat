@@ -48,13 +48,13 @@ public class ValidationServiceImpl implements ValidationService {
                         } else {
                             if (str.length() > validate.maxLength()) {
                                 throw new ValidationException(
-                                        "Field " + field + " can't has size more than " + validate.maxLength()
+                                        "Field " + field.getName() + " can't has size more than " + validate.maxLength()
                                 );
                             }
                             final Matcher matcher = pattern.matcher(str);
                             if (!matcher.find()) {
                                 throw new ValidationException(
-                                        "Field " + field + " doesn't satisfy to regex " + validate.pattern()
+                                        "Field " + field.getName() + " doesn't satisfy to regex " + validate.pattern()
                                 );
                             }
                         }
