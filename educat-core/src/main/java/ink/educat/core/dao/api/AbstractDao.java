@@ -1,5 +1,7 @@
 package ink.educat.core.dao.api;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.util.Collection;
 
 /**
@@ -11,29 +13,32 @@ import java.util.Collection;
 public interface AbstractDao<Entity> {
 
     /**
-     * Ищет сущность по переданному id
+     * Ищет сущность по переданному id. При отсутствии сущности, должен выбрасывать
+     * спецефичное исключени, какое именно, описывается в документации к конкретной
+     * реализации.
      *
      * @param id - id сущности
      * @return - сущность
-     * сущность, так и нет
      */
+    @NonNull
     Entity findById(final long id);
 
     /**
      * Ищет сущности по переданным ids, не гарантирует, что количество найденных
-     * сущностей будет совпадать с количеством переданных id.
+     * сущностей будет совпадать с количеством переданных id. Всегда возвращает
+     * коллекцию, но она может быть пустой.
      *
      * @param ids - ids сущностей
      * @return - коллекцию найденных сущностей
      */
-    Collection<Entity> findByIDs(final Iterable<Long> ids);
+    Collection<Entity> findByIDs(@NonNull final Iterable<Long> ids);
 
     /**
      * Выполняет батчевое обновление сущностей, лежащих в коллекции
      *
      * @param entities - коллекция сущностей
      */
-    void update(final Iterable<Entity> entities);
+    void update(@NonNull final Iterable<Entity> entities);
 
     /**
      * Выполняет сохранение/обновление сущности. Данным методом можно сохранять
@@ -44,13 +49,13 @@ public interface AbstractDao<Entity> {
      * @param entity - сущность
      * @return Возвращает сохраненную или обновленную сущность
      */
-    Entity saveOrUpdate(final Entity entity);
+    Entity saveOrUpdate(@NonNull final Entity entity);
 
     /**
-     * Выполняет удаление сущности
+     * Выполняет удаление сущности.
      *
      * @param entity - сущность
      */
-    void delete(final Entity entity);
+    void delete(@NonNull final Entity entity);
 
 }

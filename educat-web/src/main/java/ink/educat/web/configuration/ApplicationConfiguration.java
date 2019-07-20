@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan({
+        "ink.educat.core",
         "ink.educat.user",
         "ink.educat.article",
         "ink.educat.security",

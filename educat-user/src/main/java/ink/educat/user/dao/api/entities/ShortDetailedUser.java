@@ -77,7 +77,7 @@ public class ShortDetailedUser implements Serializable {
 
     @Override
     public String toString() {
-        return "ShortDetailedUser{" +
+        return "{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", userInfo='" + userInfo + '\'' +

@@ -14,8 +14,8 @@ public interface UserDao extends AbstractDao<User> {
      * Позволяет получить пользователя по email
      *
      * @param email - адрес электронной почты пользователя
-     * @return null - в случае, если пользователь не найден и
-     * экземпляр класса {@link User} если найден.
+     * @return экземпляр класса {@link User} если найден
+     * @throws UserNotFoundException - если пользователь найден не был
      */
     @NonNull
     User findUserByEmail(@NonNull String email);

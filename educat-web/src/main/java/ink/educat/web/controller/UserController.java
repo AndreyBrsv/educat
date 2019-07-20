@@ -4,7 +4,6 @@ import ink.educat.user.dao.api.entities.ShortDetailedUser;
 import ink.educat.user.dao.api.entities.User;
 import ink.educat.user.dao.api.entities.UserRole;
 import ink.educat.user.dao.api.entities.UserStatus;
-import ink.educat.user.dao.impl.UserDaoImpl;
 import ink.educat.user.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

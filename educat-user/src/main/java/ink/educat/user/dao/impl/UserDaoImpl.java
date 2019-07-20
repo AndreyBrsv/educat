@@ -8,7 +8,6 @@ import ink.educat.user.dao.api.entities.User;
 import ink.educat.user.dao.api.entities.UserRole;
 import ink.educat.user.dao.api.entities.UserStatus;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.jdbc.core.RowMapper;
@@ -48,7 +47,7 @@ public class UserDaoImpl implements UserDao {
                     resultSet.getString("first_name"),
                     resultSet.getString("second_name"),
                     UserStatus.parseByJsonValue(resultSet.getString("status")),
-                    UserRole.parseByJsonValue(resultSet.getString("role_name")),
+                    UserRole.valueOf(resultSet.getString("role_name")),
                     resultSet.getTimestamp("registration_date").toLocalDateTime()
             ));
 
@@ -69,7 +68,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * Мапперы из Java в БД
      */
-    private final Map<String, Object> userMapper(User user) {
+    private Map<String, Object> userMapper(User user) {
 
         Map<String, Object> values = new ManagedMap<>();
         values.put("user_id", user.getId());
@@ -78,7 +77,7 @@ public class UserDaoImpl implements UserDao {
         values.put("first_name", user.getFirstName());
         values.put("second_name", user.getSecondName());
         values.put("user_status", user.getUserStatus());
-        values.put("user_role", user.getUserRole());
+        values.put("user_role", user.getUserRole().name());
         values.put("user_role_id", user.getUserRole().getCode());
 
         return values;
@@ -87,6 +86,8 @@ public class UserDaoImpl implements UserDao {
     // Методы DAO
     /**
      * {@inheritDoc}
+     *
+     * @throws UserNotFoundException - если пользователь не найден
      */
     @NonNull
     public User findUserByEmail(@NonNull final String email) {
@@ -122,6 +123,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * {@inheritDoc}
      *
+     * @throws UserNotFoundException - если пользователь не найден
      * @discussion Как известно хорошей практикой с точки зрения производительности
      * является написание запросов без всяких SELECT DISTINCT-ов и LEFT/RIGHT JOIN-ов,
      * а на чистом SELECT и JOIN. Здесь LEFT JOIN стоят сознательно, так как главная
@@ -171,6 +173,8 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * {@inheritDoc}
+     *
+     * @throws UserNotFoundException - если пользователь не найден
      */
     @NonNull
     public User findById(final long id) {
@@ -203,8 +207,9 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * {@inheritDoc}
+     *
      */
-    @Nullable
+    @NonNull
     public List<User> findByIDs(@NonNull final Iterable<Long> ids) {
         final StringBuilder validIds = new StringBuilder();
         final Iterator<Long> iterator = ids.iterator();
@@ -225,7 +230,6 @@ public class UserDaoImpl implements UserDao {
                 "No valid ids!"
         );
 
-        //todo MapSqlParameterSources не работает, обратись - объясню почему
         final List<User> userList = namedParameterJdbcTemplate.query(
                 "SELECT * FROM EC_USERS U \n" +
                         "JOIN EC_USER_ROLES R ON U.USER_ROLE_ID = R.USER_ROLE_ID \n" +
@@ -272,7 +276,7 @@ public class UserDaoImpl implements UserDao {
                         "EMAIL = :email, \n" +
                         "FIRST_NAME = :first_name, SECOND_NAME = :second_name, \n" +
                         "STATUS = :user_status, \n" +
-                        "USER_ROLE_ID = (SELECT DISTINCT USER_ROLE_ID FROM EC_USER_ROLES WHERE USER_ROLE_ID = :user_role)",
+                        "USER_ROLE_ID = (SELECT USER_ROLE_ID FROM EC_USER_ROLES WHERE USER_ROLE_ID = :user_role)",
                 mapSqlParameterSource,
                 keyHolder,
                 new String[]{"USER_ID"}

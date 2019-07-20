@@ -44,6 +44,7 @@ public class ArticleDaoImpl implements ArticleDao {
      */
 
 
+    @NonNull
     @Override
     public Article findById(long id) {
         Preconditions.checkArgument(
@@ -79,7 +80,7 @@ public class ArticleDaoImpl implements ArticleDao {
      * {@inheritDoc}
      */
     @Override
-    public Collection<Article> findByIDs(Iterable<Long> ids) {
+    public Collection<Article> findByIDs(@NonNull Iterable<Long> ids) {
         final Iterator iterator = ids.iterator();
         return null;
     }
@@ -88,7 +89,7 @@ public class ArticleDaoImpl implements ArticleDao {
      * {@inheritDoc}
      */
     @Override
-    public void update(Iterable<Article> articles) {
+    public void update(@NonNull Iterable<Article> articles) {
 
     }
 
@@ -96,7 +97,7 @@ public class ArticleDaoImpl implements ArticleDao {
      * {@inheritDoc}
      */
     @Override
-    public Article saveOrUpdate(Article article) {
+    public Article saveOrUpdate(@NonNull Article article) {
         return null;
     }
 

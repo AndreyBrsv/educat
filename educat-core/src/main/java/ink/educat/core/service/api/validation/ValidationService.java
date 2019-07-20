@@ -13,5 +13,5 @@ public interface ValidationService {
      * @throws ValidationException - если хотя бы одно из полей, аннотированное
      *                             {@link Validate} не соответвует условиям внутри аннотации.
      */
-    <T> void validate(T obj);
+    <T> void validate(T obj) throws IllegalAccessException;
 }

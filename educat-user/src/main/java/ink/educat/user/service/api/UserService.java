@@ -11,8 +11,8 @@ public interface UserService {
      * Позволяет получить пользователя по email
      *
      * @param email - адрес электронной почты пользователя
-     * @return - пользователя, соответствующего данному email,
-     * или null, если пользователь не найден 
+     * @return - пользователя, соответствующего данному email
+     * @throws ink.educat.user.dao.api.UserNotFoundException - если пользователь не найден
      */
     @NonNull
     User findUserByEmail(@NonNull String email);
@@ -29,8 +29,10 @@ public interface UserService {
      *
      * @param userId - уникальный идентификатор пользователя
      * @return - информацию о пользователе
+     * @throws ink.educat.user.dao.api.UserNotFoundException - если пользователь не найден
      * @see ShortDetailedUser
      */
+    @NonNull
     ShortDetailedUser getShortDetailedUserById(long userId);
 
     /**

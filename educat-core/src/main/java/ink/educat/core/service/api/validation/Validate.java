@@ -14,8 +14,9 @@ public @interface Validate {
 
     int maxLength() default 100;
 
-    boolean nullable() default true;
-
     // Использует для проверки регулярные выражения
-    String pattern() default "[{*}]";
+    String pattern() default "[^\\n]+";
+
+    // Чуствительности к регистру
+    boolean caseInsensitive() default false;
 }

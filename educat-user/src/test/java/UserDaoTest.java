@@ -3,28 +3,21 @@ import ink.educat.user.dao.api.entities.ShortDetailedUser;
 import ink.educat.user.dao.api.entities.User;
 import ink.educat.user.dao.api.entities.UserRole;
 import ink.educat.user.dao.api.entities.UserStatus;
+import ink.educat.user.dao.impl.UserDaoImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ink.educat.user.dao.api.UserDao;
-import ink.educat.user.dao.impl.UserDaoImpl;
-import org.springframework.expression.spel.ast.Assign;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 public class UserDaoTest {
 
     private UserDaoImpl userDao;
 
-    @Autowired
     @Before
     public void UserDaoTest() {
         AnnotationConfigApplicationContext configApplicationContext =
@@ -188,5 +181,3 @@ public class UserDaoTest {
         }
     }
 }
-
-
