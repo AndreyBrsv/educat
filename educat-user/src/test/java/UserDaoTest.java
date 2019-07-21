@@ -23,6 +23,8 @@ public class UserDaoTest {
         AnnotationConfigApplicationContext configApplicationContext =
                 new AnnotationConfigApplicationContext(TestConfig.class);
 
+//        Зачем лишняя переменная? Сразу можно писать
+//        this.userDao = (UserDaoImpl) configApplicationContext.getBean(UserDao.class);
         final UserDaoImpl userDaoImpl = (UserDaoImpl) configApplicationContext.getBean(UserDao.class);
 
         this.userDao = userDaoImpl;
@@ -34,6 +36,11 @@ public class UserDaoTest {
      * В данном тесте мы проверяем поиск по email'у. @ya.ru и @yandex.ru должны являться одним
      * адресом. Так же тест должен проверять, что мы ничего не нашли по email'у.
      */
+
+//    Мне кажется нужно разнести тесты.
+//    1) Для юзеров которые уже есть в базе
+//    2) Для тех кого еще нет
+//    Тогда получится, что у нас все будет логично, а то сейчас это оверхед
     @Test
     public void findUserByEmailTest() {
         ArrayList<String> emailList = new ArrayList<>();
@@ -51,13 +58,15 @@ public class UserDaoTest {
                 User user = userDao.findUserByEmail(emailList.get(i));
                 Assert.assertEquals(expectedFirstNameList.get(i), user.getFirstName());
             } catch (UserNotFoundException ex) {
-                if(expectedFirstNameList.get(i).equals("null")) {
+                if (expectedFirstNameList.get(i).equals("null")) {
                     Assert.assertTrue(true);
-                }
-                else {
+                } else {
                     Assert.assertTrue(false);
                 }
-            } catch (RuntimeException ex) {
+            }
+//            Абсолютно Лишняя штука тк если у вас RuntimeException -> падает на уровне Базы.
+//            Зачем тестировать не работающий dao?
+            catch (RuntimeException ex) {
                 System.out.println("Неизвестная ошибка внутри метода!");
                 Assert.assertTrue(false);
                 ex.printStackTrace();
@@ -70,6 +79,7 @@ public class UserDaoTest {
      * В данном методе мы проверяем поиск короткой информации по id. Еще может быть такое,
      * что id не существует.
      */
+//    Так же можно разнести тесты, а то получается что мы тестируем все сразу
     @Test
     public void getShortDetailedUserByIdTest() {
         ArrayList<Integer> idList = new ArrayList<>();
@@ -89,7 +99,9 @@ public class UserDaoTest {
                 } else {
                     Assert.assertTrue(false);
                 }
-            } catch (RuntimeException ex) {
+            }
+//            Аналогично +- 70 строке
+            catch (RuntimeException ex) {
                 System.out.println("Неизвестная ошибка внутри метода!");
                 Assert.assertTrue(false);
                 ex.printStackTrace();
@@ -100,6 +112,7 @@ public class UserDaoTest {
     /**
      * В данном методе осуществляется проверка информации по id. id может не существовать.
      */
+//    Аналогично разделить, чтобы мы понимали что ждем реальный результат или exeption
     @Test
     public void findByIdTest() {
         ArrayList<Integer> idList = new ArrayList<>();
@@ -122,6 +135,7 @@ public class UserDaoTest {
                 } else {
                     Assert.assertTrue(false);
                 }
+//                Аналогично 70 строке
             } catch (RuntimeException ex) {
                 System.out.println("Неизвестная ошибка внутри метода!");
                 Assert.assertTrue(false);
@@ -148,7 +162,7 @@ public class UserDaoTest {
         try {
             List<User> userList = userDao.findByIDs(ids);
             Assert.assertEquals(goodids.size(), userList.size());
-        } catch (RuntimeException ex){
+        } catch (RuntimeException ex) {
             System.out.println("Неизвестная ошибка внутри метода!");
             Assert.assertTrue(false);
             ex.printStackTrace();
@@ -159,14 +173,19 @@ public class UserDaoTest {
     @Test
     public void saveOrUpdateTest() {
         String firstName = "Andrey";
-        String name="null";
+        String name = "null";
         String expectedfirstName = "Vladimir";
         String emailadress = "test@test.ru";
 
         try {
             User user = userDao.findUserByEmail(emailadress); // Берем информацию юзера по его почте
             name = user.getFirstName();
-        } catch(Exception ex) {
+        } catch (Exception ex) {
+//          1) Строки сравниваютс только equals
+//          2) Не пишем длинные строчки, т.к. у меня маленький экран, давайте писать до черты               вот этой ->
+//          3) Вообще есть комбинация, которая будет "типо" выравнивать для мака это command + alt(option) + L
+//          4) Опять получается, что в этом тесте каша, ты мы в одном случае ждем норм ответа, а в другим Exception
+//              давайте попробуем разнести это на разные тесты 
             if (name == "null") { // Проверяем существует ли пользователь
                 User usernew = new User(1, emailadress, false, "123", firstName, "Ivanov", UserStatus.ACTIVE, UserRole.USER, LocalDateTime.now());
                 userDao.saveOrUpdate(usernew); // Создаем юзера
@@ -177,7 +196,7 @@ public class UserDaoTest {
                 userDao.findUserByEmail(emailadress); // Берем информацию по юзеру
                 Assert.assertEquals(expectedfirstName, userchange.getFirstName()); // Проверяем, произошли ли изменения
                 userDao.delete(userchange); // удаляем созданного юзера в этом методе
-             }
+            }
         }
     }
 }
