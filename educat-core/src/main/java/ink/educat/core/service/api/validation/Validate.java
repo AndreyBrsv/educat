@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @EducatAnnotation
 public @interface Validate {
 
-    int maxLength() default 100;
+    long maxLength() default 100;
 
     // Использует для проверки регулярные выражения
     String pattern() default "[^\\n]+";

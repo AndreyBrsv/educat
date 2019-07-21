@@ -41,7 +41,7 @@ public interface Jsonable<T extends Enum<T>> extends Serializable {
         try {
             for (final T item : type.getEnumConstants()) {
                 final Method getJsonValue = item.getClass().getMethod("getJsonValue");
-                if (((String) getJsonValue.invoke(item)).equals(jsonValue)) {
+                if (getJsonValue.invoke(item).equals(jsonValue)) {
                     return item;
                 }
             }

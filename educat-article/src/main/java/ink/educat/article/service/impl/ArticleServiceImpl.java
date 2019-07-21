@@ -4,6 +4,7 @@ import ink.educat.article.dao.api.ArticleDao;
 import ink.educat.article.dao.api.entities.Article;
 import ink.educat.article.dao.api.entities.ShortDetailedArticle;
 import ink.educat.article.service.api.ArticleService;
+import ink.educat.core.service.api.validation.ValidationService;
 import ink.educat.user.dao.api.entities.User;
 import ink.educat.user.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,16 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final UserService userService;
     private final ArticleDao articleDao;
+    private final ValidationService validationService;
 
     @Autowired
     public ArticleServiceImpl(
             final UserService userService,
-            final ArticleDao articleDao) {
+            final ArticleDao articleDao,
+            final ValidationService validationService) {
         this.userService = userService;
         this.articleDao = articleDao;
+        this.validationService = validationService;
     }
 
     /**
