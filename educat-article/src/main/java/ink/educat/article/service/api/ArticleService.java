@@ -30,6 +30,9 @@ import java.util.List;
  */
 public interface ArticleService {
 
+    long MAX_TITLE_LENGTH = 120;
+    long MAX_SUBTITLE_LENGTH = 120;
+
     /**
      * Метод, позволяющий получить статью по ее id
      *

@@ -1,5 +1,6 @@
 package ink.educat.article.dao.api.entities.component;
 
+import ink.educat.article.service.api.ArticleService;
 import ink.educat.core.service.api.validation.Validate;
 
 import java.io.Serializable;
@@ -21,7 +22,7 @@ public class ArticleComponent implements Serializable {
 
     private String language;
 
-    @Validate(maxLength = 100)
+    @Validate(maxLength = ArticleService.MAX_TITLE_LENGTH)
     private String title;
 
     private String text;
