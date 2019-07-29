@@ -1,23 +1,9 @@
 package ink.educat.web.controller;
 
-import ink.educat.user.dao.api.entities.ShortDetailedUser;
-import ink.educat.user.dao.api.entities.User;
-import ink.educat.user.dao.api.entities.UserRole;
-import ink.educat.user.dao.api.entities.UserStatus;
-import ink.educat.user.service.api.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
-
-@Controller
+//@Controller
 public class UserController {
 
-    private final UserService userService;
+    /*private final UserService userService;
 
     @Autowired
     public UserController(final UserService userService) {
@@ -63,5 +49,5 @@ public class UserController {
             userService.registrationUser(user);
             return "Пользователь успешно зарегестрировался!";
         }
-    }
+    }*/
 }
