@@ -5,6 +5,8 @@ package ink.educat.security.service.api;
  */
 public class NotEnoughPermissionsException extends RuntimeException {
 
+    private static final long serialVersionUID = 7766592462774840533L;
+
     public NotEnoughPermissionsException() {
     }
 

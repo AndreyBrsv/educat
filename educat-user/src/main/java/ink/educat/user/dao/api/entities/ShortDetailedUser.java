@@ -13,6 +13,8 @@ import java.io.Serializable;
  */
 public class ShortDetailedUser implements Serializable {
 
+    private static final long serialVersionUID = 2273662698525464389L;
+
     /** Уникальный идентификатор пользователя */
     private long id;
 

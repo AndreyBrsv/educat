@@ -18,6 +18,8 @@ import java.io.Serializable;
  */
 public class ArticleComponent implements Serializable {
 
+    private static final long serialVersionUID = 5479936234295770555L;
+
     private ArticleComponentRole role;
 
     private String language;

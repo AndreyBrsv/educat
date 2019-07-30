@@ -21,6 +21,8 @@ import java.time.LocalDateTime;
  */
 public class ShortDetailedArticle implements Serializable {
 
+    private static final long serialVersionUID = -5627128243963653148L;
+
     /**
      * Уникальный идентификатор статьи
      */
@@ -57,7 +59,22 @@ public class ShortDetailedArticle implements Serializable {
      */
     private LocalDateTime publicationDate;
 
-    public ShortDetailedArticle() {
+    public ShortDetailedArticle() {}
+
+    public ShortDetailedArticle(final long id,
+                                final String author,
+                                final ArticleMetadata metadata,
+                                final String title,
+                                final String readingTime,
+                                final String[] tags,
+                                final LocalDateTime publicationDate) {
+        this.id = id;
+        this.author = author;
+        this.metadata = metadata;
+        this.title = title;
+        this.readingTime = readingTime;
+        this.tags = tags;
+        this.publicationDate = publicationDate;
     }
 
     public long getId() {

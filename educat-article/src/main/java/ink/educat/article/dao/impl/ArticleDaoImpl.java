@@ -31,7 +31,6 @@ public class ArticleDaoImpl implements ArticleDao {
      */
     private final RowMapper<ShortDetailedArticle> shortDetailedArticleRowMapper =
             ((resultSet, i) -> new ShortDetailedArticle(
-
             ));
 
     private final RowMapper<Article> articleRowMapper =
@@ -81,7 +80,8 @@ public class ArticleDaoImpl implements ArticleDao {
      */
     @Override
     public Collection<Article> findByIDs(@NonNull Iterable<Long> ids) {
-        final Iterator iterator = ids.iterator();
+        final Iterator<Long> iterator = ids.iterator();
+        
         return null;
     }
 

@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
  */
 public class Article implements Serializable {
 
+    private static final long serialVersionUID = 8671151101027281011L;
+    
     private long identifier;
     private long authorIdentifier;
     @Validate(maxLength = ArticleService.MAX_TITLE_LENGTH)

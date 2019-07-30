@@ -6,6 +6,11 @@
 .idea
 *.iml
 
+# VC
+.classpath
+.project
+.settings
+
 # Игнорируем скомпиленные файлы
 *.jar
 *.ear

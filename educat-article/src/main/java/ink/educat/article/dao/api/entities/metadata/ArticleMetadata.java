@@ -6,6 +6,8 @@ import java.io.Serializable;
 
 public class ArticleMetadata implements Serializable {
 
+    private static final long serialVersionUID = 382395158849658341L;
+
     @Validate(maxLength = 300)
     private String excerpt;
 
