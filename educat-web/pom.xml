@@ -52,6 +52,20 @@
             <version>3.8.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.jberet.test-apps/postConstruct -->
+        <dependency>
+            <groupId>org.jberet.test-apps</groupId>
+            <artifactId>postConstruct</artifactId>
+            <version>1.0.0.CR1</version>
+        </dependency>
+
+        <!-- JSON Web Token lib -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.8.0</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
         <dependency>
             <groupId>org.springframework.security</groupId>
