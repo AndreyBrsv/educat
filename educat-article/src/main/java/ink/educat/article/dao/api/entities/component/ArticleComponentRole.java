@@ -12,7 +12,8 @@ public enum ArticleComponentRole implements Jsonable<ArticleComponentRole> {
     IMAGE_ARRAY("images", "Массив изображений"),
     ACCENT("accent", "Акцент"),
     QUOTE("quote", "Цитата"),
-    CODE("code", "Программный код");
+    CODE("code", "Программный код"),
+    FORMULA("formula", "Latex/MathJax формула");
 
     private String jsonValue;
     private String description;

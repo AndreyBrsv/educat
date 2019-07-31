@@ -9,6 +9,7 @@ public enum ArticleStatus implements Jsonable<ArticleStatus> {
 
     AVAILABLE("available", "Доступна"),
     MODERATION("moderation", "На модерации"),
+    HIDDEN("hidden", "Скрыта"),
     DELETED("deleted", "Удалена");
 
     private String jsonValue;
